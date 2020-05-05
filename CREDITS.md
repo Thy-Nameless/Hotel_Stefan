@@ -1,4 +1,4 @@
-# Most translations have been made by independent people that were willing to help me reach as many users as posible via different apps:
+## Most translations have been made by independent people that were willing to help me reach as many users as posible via different apps:
 
 ### @name = twitter, instagram | name#XXXX = discord tag
 
