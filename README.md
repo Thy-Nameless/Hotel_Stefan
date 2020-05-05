@@ -1,5 +1,7 @@
 # Hotel Stefan *****
 
+## The finest of the finest, The best of the best.
+
 ---
 
 Estado de proyecto / State of project: 
