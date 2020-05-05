@@ -9,9 +9,10 @@
 
 ---
 
-###### [Thanks to the help from many individuals](/CREDITS.md), Readme is available in the following languages:
+###### [Thanks to the help received from many individuals](/CREDITS.md), Readme is available in the following languages:
 - Español
 - English
+- Polski
 - Français
 - Catalans
 - Nederlands
@@ -63,6 +64,24 @@ Estado de proyecto / State of project:
 - Can I make reservations using the github version of the app?
 
 - Of course not! This is a dummy app used for tests-only, linked to a completely irrelevant database, the only way to get access to the actual app is to contact us via phone or email available on our website.
+
+---
+
+##### [Wytyczne dotyczące wkładu w ten projekt](/CONTRIBUTING.md)
+
+### 5-Gwiazdkowy hotel, znajdujący się w mieście Alcañiz, stworzony dzięki turystyce rozwiązującej się wokół MotoGP w Aragonii.
+
+- Do czego służy ta aplikacja?
+
+- Ta aplikacja służy pomocom przy rezerwacjach VIP'ów, żeby ci mieli znacznie łatwiej znaleść miejsce pokojowe w tym bardzo porządanym hotelu.
+
+- Dlaczego ta aplikacja?
+
+- Żeby dać priorytet niektórym rezerwacją które my możemy uważać za "ważniejsze", i żeby być pewnym że każdy VIP będzie miał przydzielony pokój, dając im więcej miejsca na koncentracje na tym co jest dla nich ważne.
+
+- Czy mogę składać rezerwację używając wersji github tej aplikacji?
+
+- Oczywiście, że nie! Ta aplikacja służy jedynie do testów, i jest podłączona do bazy danych które nie mając nic doczynienia z naszymi prawdziwymi bazami danych, jedyny sposób żeby mieć dostęp do naszej prawdziwej aplikacji to zkontaktowanie się z nami poprzez telefon lub maila znajdującego się na naszej stronie internetowej.
 
 ---
 
