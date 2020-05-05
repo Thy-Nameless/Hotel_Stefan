@@ -1,6 +1,6 @@
 <div align="center"><h1>Hotel Stefan *****</h1><br/>
 
-<h2>The finest of the finest, The best of the best.</h2>
+<h2>The finest of the finest, The best of the best.</h2><br/><br/>
  </div>
 
 <p align="center"><img src="/recursos/hotelStefan.jpg"></p>
