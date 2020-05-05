@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import java.awt.Frame;
+import java.awt.Point;
+
 import javax.swing.JMenuBar;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
@@ -35,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class Pago extends JFrame {
 
@@ -60,6 +63,7 @@ public class Pago extends JFrame {
         private JTextArea textArea;
         private String usuarioReserva;
         private Reserva reservaRealizada;
+    	private Point initialClick;
 
 	/**
 	 * Launch the application.
@@ -201,7 +205,6 @@ public class Pago extends JFrame {
 					} else {
 						if (longt ==  4 || longt == 9 || longt == 14) {
 							txtmodif = tc + " ";
-							System.out.println(txtmodif);
 						} else {
 							txtmodif = tc;
 						}
@@ -248,6 +251,29 @@ public class Pago extends JFrame {
 					break;
 			}
 			textFieldCVV.setText(txtmodif);
+		}
+	}
+	private class PanelMouseListener extends MouseAdapter {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			initialClick = e.getPoint();
+            getComponentAt(initialClick);
+		}
+	}
+	private class PanelMouseMotionListener extends MouseMotionAdapter {
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			int thisX = getLocation().x;
+            int thisY = getLocation().y;
+
+            // Determine how much the mouse moved since the initial click
+            int xMoved = e.getX() - initialClick.x;
+            int yMoved = e.getY() - initialClick.y;
+
+            // Move window to this position
+            int X = thisX + xMoved;
+            int Y = thisY + yMoved;
+            setLocation(X, Y);
 		}
 	}
 	/** Realización de la comprobación del código CVC */
@@ -375,6 +401,8 @@ public class Pago extends JFrame {
     		contentPane.add(lblReservar);
     		
     		panel = new JPanel();
+    		panel.addMouseMotionListener(new PanelMouseMotionListener());
+    		panel.addMouseListener(new PanelMouseListener());
     		panel.setBackground(Color.WHITE);
     		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
     		panel.setBounds(0, 0, 1280, 30);
