@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import estaticos.Usuario;
 
+@SuppressWarnings("unused")
 public class IoDatos {
 
 	

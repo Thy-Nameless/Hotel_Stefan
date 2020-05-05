@@ -1,6 +1,5 @@
 package principal;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -25,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Component;
 
+@SuppressWarnings({ "serial", "unused" })
 public class FrameBase extends JFrame {
 
 	private JPanel contentPane;

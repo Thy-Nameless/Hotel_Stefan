@@ -13,11 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import estaticos.Reserva;
-
+@SuppressWarnings({"unchecked","rawtypes"})
 public class OperacionReserva {
 	ArrayList<Reserva> listaReservas;
 	
-	@SuppressWarnings("unchecked")
+	
 	/** Carga todas las reservas de un archivo en local */
 	public void cargarReservas() {
         File fichero = new File(".\\recursos\\reservas.dat");
@@ -53,7 +53,8 @@ public class OperacionReserva {
     public String cargarArray(String usuario) {
     	String contenido = "";
     	Reserva usu;
-    	Iterator it = listaReservas.iterator();
+    	
+		Iterator it = listaReservas.iterator();
         while (it.hasNext()) {
         	usu = (Reserva) it.next();
         	if (usu.getUsuario().equals(usuario))

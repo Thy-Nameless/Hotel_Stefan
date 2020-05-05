@@ -1,6 +1,5 @@
 package principal;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,17 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.Rectangle;
-import java.awt.Frame;
 import java.awt.Point;
 
-import javax.swing.JMenuBar;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
 import InputOutput.OperacionHabitacion;
@@ -26,7 +19,6 @@ import estaticos.Reserva;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,6 +31,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseMotionAdapter;
 
+@SuppressWarnings({ "serial" })
 public class Pago extends JFrame {
 
 	private JLabel lblReservar;

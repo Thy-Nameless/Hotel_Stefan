@@ -43,6 +43,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseMotionAdapter;
 
+@SuppressWarnings({ "serial", "unused" })
 public class Registro extends JFrame {
 
 	private JPanel contentPane;
@@ -85,139 +86,7 @@ public class Registro extends JFrame {
 	 * Create the frame.
 	 */
 	public Registro() {
-
-		setResizable(false);
-		setUndecorated(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 750);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		panel = new JPanel();
-		panel.addMouseMotionListener(new PanelMouseMotionListener());
-		panel.addMouseListener(new PanelMouseListener());
-		panel.setBackground(Color.WHITE);
-		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
-		panel.setBounds(0, 0, 1280, 30);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		lblNombreApp = new JLabel("Hotel Stefan *****");
-		lblNombreApp.setBounds(538, 0, 212, 30);
-		lblNombreApp.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblNombreApp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombreApp.setFont(new Font("Perpetua Titling MT", Font.BOLD, 18));
-		lblNombreApp.setForeground(new Color(184, 134, 11));
-		panel.add(lblNombreApp);
-
-		lblCerrar = new JLabel("");
-		lblCerrar.setBounds(22, 9, 14, 14);
-		lblCerrar.addMouseListener(new LblCerrarMouseListener());
-		lblCerrar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblCerrar.setToolTipText("Cerrar");
-		lblCerrar.setIcon(new ImageIcon(".\\recursos\\close.png"));
-		panel.add(lblCerrar);
-
-		lblMinimizar = new JLabel("");
-		lblMinimizar.setBounds(46, 9, 14, 14);
-		lblMinimizar.addMouseListener(new LblMinimizarMouseListener());
-		lblMinimizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblMinimizar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMinimizar.setToolTipText("Minimizar");
-		lblMinimizar.setIcon(new ImageIcon(".\\recursos\\minimize.png"));
-		panel.add(lblMinimizar);
-
-		lblMaximizar = new JLabel("");
-		lblMaximizar.setBounds(70, 9, 14, 14);
-		lblMaximizar.addMouseListener(new LblMaximizarMouseListener());
-		lblMaximizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblMaximizar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMaximizar.setToolTipText("Maximizar");
-		lblMaximizar.setIcon(new ImageIcon(".\\recursos\\maximize.png"));
-		panel.add(lblMaximizar);
-
-		textFieldUser = new JTextField();
-		textFieldUser.addFocusListener(new TextFieldUserFocusListener());
-		textFieldUser.setText("Usuario");
-		textFieldUser.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldUser.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		textFieldUser.setBounds(457, 200, 368, 40);
-		contentPane.add(textFieldUser);
-		textFieldUser.setColumns(10);
-
-		lblRegistro = new JLabel("Registro");
-		lblRegistro.setFocusable(false);
-		lblRegistro.setForeground(new Color(184, 134, 11));
-		lblRegistro.setFont(new Font("Monospaced", Font.PLAIN, 50));
-		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistro.setBounds(457, 62, 368, 70);
-		contentPane.add(lblRegistro);
-
-		btnAnadirUser = new JLabel("");
-		btnAnadirUser.addMouseListener(new BtnAnadirUserMouseListener());
-		btnAnadirUser.setToolTipText("Añadir usuario");
-		btnAnadirUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAnadirUser.setIcon(new ImageIcon(".\\recursos\\addUserBW.png"));
-		btnAnadirUser.setHorizontalAlignment(SwingConstants.CENTER);
-		btnAnadirUser.setFocusable(false);
-		btnAnadirUser.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnAnadirUser.setBounds(406, 550, 128, 128);
-		contentPane.add(btnAnadirUser);
-
-		btnSignIn = new JLabel("");
-		btnSignIn.setToolTipText("Volver a Login");
-		btnSignIn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSignIn.setIcon(
-				new ImageIcon(".\\recursos\\goBackBW.png"));
-		btnSignIn.setHorizontalAlignment(SwingConstants.CENTER);
-		btnSignIn.setFocusable(false);
-		btnSignIn.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnSignIn.setBounds(751, 550, 128, 128);
-		btnSignIn.addMouseListener(new BtnSignInMouseListener());
-
-		contentPane.add(btnSignIn);
-
-		chckbxAdmin = new JCheckBox(" Administrador");
-		chckbxAdmin.setForeground(SystemColor.window);
-		chckbxAdmin.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxAdmin.setOpaque(false);
-		chckbxAdmin.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		chckbxAdmin.setBounds(457, 400, 368, 40);
-		contentPane.add(chckbxAdmin);
-
-		btnVerContrasena = new JLabel("");
-		btnVerContrasena.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnVerContrasena.setIcon(new ImageIcon(".\\recursos\\viewPassBW.png"));
-		btnVerContrasena.setToolTipText("Mostrar password");
-		btnVerContrasena.setHorizontalAlignment(SwingConstants.CENTER);
-		btnVerContrasena.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVerContrasena.setBounds(845, 264, 64, 64);
-		btnVerContrasena.addMouseListener(new BtnVerContrasenaMouseListener());
-		contentPane.add(btnVerContrasena);
-
-		pwdContrasena = new JPasswordField();
-		pwdContrasena.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		pwdContrasena.addFocusListener(new PwdContrasenaFocusListener());
-		pwdContrasena.setEchoChar((char)0);
-		pwdContrasena.setText("Contraseña");
-		pwdContrasena.setHorizontalAlignment(SwingConstants.CENTER);
-		pwdContrasena.setBounds(457, 275, 368, 40);
-		contentPane.add(pwdContrasena);
-
-		lblFondo = new JLabel("");
-		lblFondo.setIcon(new ImageIcon(".\\recursos\\fondo.jpg"));
-		lblFondo.setBounds(0, 30, 1280, 720);
-		contentPane.add(lblFondo);
-		lblFondo.setFocusable(true);
-		lblFondo.requestFocus();
-		vUsuarios = IoDatos.leerDatos();
-		pwdContrasena.setVisible(true);
-		escondida = false;
-		mostrar = false;
-
+		initApp();
 	}
 
 	private class LblCerrarMouseListener extends MouseAdapter {
@@ -445,5 +314,138 @@ public class Registro extends JFrame {
             int Y = thisY + yMoved;
             setLocation(X, Y);
 		}
+	}
+	public void initApp() {
+		setResizable(false);
+		setUndecorated(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1280, 750);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		panel = new JPanel();
+		panel.addMouseMotionListener(new PanelMouseMotionListener());
+		panel.addMouseListener(new PanelMouseListener());
+		panel.setBackground(Color.WHITE);
+		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
+		panel.setBounds(0, 0, 1280, 30);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		lblNombreApp = new JLabel("Hotel Stefan *****");
+		lblNombreApp.setBounds(538, 0, 212, 30);
+		lblNombreApp.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNombreApp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreApp.setFont(new Font("Perpetua Titling MT", Font.BOLD, 18));
+		lblNombreApp.setForeground(new Color(184, 134, 11));
+		panel.add(lblNombreApp);
+
+		lblCerrar = new JLabel("");
+		lblCerrar.setBounds(22, 9, 14, 14);
+		lblCerrar.addMouseListener(new LblCerrarMouseListener());
+		lblCerrar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblCerrar.setToolTipText("Cerrar");
+		lblCerrar.setIcon(new ImageIcon(".\\recursos\\close.png"));
+		panel.add(lblCerrar);
+
+		lblMinimizar = new JLabel("");
+		lblMinimizar.setBounds(46, 9, 14, 14);
+		lblMinimizar.addMouseListener(new LblMinimizarMouseListener());
+		lblMinimizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblMinimizar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMinimizar.setToolTipText("Minimizar");
+		lblMinimizar.setIcon(new ImageIcon(".\\recursos\\minimize.png"));
+		panel.add(lblMinimizar);
+
+		lblMaximizar = new JLabel("");
+		lblMaximizar.setBounds(70, 9, 14, 14);
+		lblMaximizar.addMouseListener(new LblMaximizarMouseListener());
+		lblMaximizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblMaximizar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMaximizar.setToolTipText("Maximizar");
+		lblMaximizar.setIcon(new ImageIcon(".\\recursos\\maximize.png"));
+		panel.add(lblMaximizar);
+
+		textFieldUser = new JTextField();
+		textFieldUser.addFocusListener(new TextFieldUserFocusListener());
+		textFieldUser.setText("Usuario");
+		textFieldUser.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldUser.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		textFieldUser.setBounds(457, 200, 368, 40);
+		contentPane.add(textFieldUser);
+		textFieldUser.setColumns(10);
+
+		lblRegistro = new JLabel("Registro");
+		lblRegistro.setFocusable(false);
+		lblRegistro.setForeground(new Color(184, 134, 11));
+		lblRegistro.setFont(new Font("Monospaced", Font.PLAIN, 50));
+		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistro.setBounds(457, 62, 368, 70);
+		contentPane.add(lblRegistro);
+
+		btnAnadirUser = new JLabel("");
+		btnAnadirUser.addMouseListener(new BtnAnadirUserMouseListener());
+		btnAnadirUser.setToolTipText("Añadir usuario");
+		btnAnadirUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAnadirUser.setIcon(new ImageIcon(".\\recursos\\addUserBW.png"));
+		btnAnadirUser.setHorizontalAlignment(SwingConstants.CENTER);
+		btnAnadirUser.setFocusable(false);
+		btnAnadirUser.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAnadirUser.setBounds(406, 550, 128, 128);
+		contentPane.add(btnAnadirUser);
+
+		btnSignIn = new JLabel("");
+		btnSignIn.setToolTipText("Volver a Login");
+		btnSignIn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSignIn.setIcon(
+				new ImageIcon(".\\recursos\\goBackBW.png"));
+		btnSignIn.setHorizontalAlignment(SwingConstants.CENTER);
+		btnSignIn.setFocusable(false);
+		btnSignIn.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnSignIn.setBounds(751, 550, 128, 128);
+		btnSignIn.addMouseListener(new BtnSignInMouseListener());
+
+		contentPane.add(btnSignIn);
+
+		chckbxAdmin = new JCheckBox(" Administrador");
+		chckbxAdmin.setForeground(SystemColor.window);
+		chckbxAdmin.setHorizontalAlignment(SwingConstants.CENTER);
+		chckbxAdmin.setOpaque(false);
+		chckbxAdmin.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		chckbxAdmin.setBounds(457, 400, 368, 40);
+		contentPane.add(chckbxAdmin);
+
+		btnVerContrasena = new JLabel("");
+		btnVerContrasena.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVerContrasena.setIcon(new ImageIcon(".\\recursos\\viewPassBW.png"));
+		btnVerContrasena.setToolTipText("Mostrar password");
+		btnVerContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+		btnVerContrasena.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVerContrasena.setBounds(845, 264, 64, 64);
+		btnVerContrasena.addMouseListener(new BtnVerContrasenaMouseListener());
+		contentPane.add(btnVerContrasena);
+
+		pwdContrasena = new JPasswordField();
+		pwdContrasena.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		pwdContrasena.addFocusListener(new PwdContrasenaFocusListener());
+		pwdContrasena.setEchoChar((char)0);
+		pwdContrasena.setText("Contraseña");
+		pwdContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+		pwdContrasena.setBounds(457, 275, 368, 40);
+		contentPane.add(pwdContrasena);
+
+		lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(".\\recursos\\fondo.jpg"));
+		lblFondo.setBounds(0, 30, 1280, 720);
+		contentPane.add(lblFondo);
+		lblFondo.setFocusable(true);
+		lblFondo.requestFocus();
+		vUsuarios = IoDatos.leerDatos();
+		pwdContrasena.setVisible(true);
+		escondida = false;
+		mostrar = false;
 	}
 }

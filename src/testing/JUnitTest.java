@@ -27,6 +27,7 @@ import principal.Reservar;
 
 /*Borja*/
 
+@SuppressWarnings("unused")
 class JUnitTest {
 
 	OperacionHabitacion opHab;
