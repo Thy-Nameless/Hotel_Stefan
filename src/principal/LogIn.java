@@ -141,7 +141,7 @@ public class LogIn extends JFrame {
 		passwordFieldPass = new JPasswordField();
 		passwordFieldPass.addFocusListener(new PasswordFieldFocusListener());
 		passwordFieldPass.setHorizontalAlignment(SwingConstants.CENTER);
-		passwordFieldPass.setEchoChar('•');
+		passwordFieldPass.setEchoChar('*');
 		passwordFieldPass.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passwordFieldPass.setBounds(432, 350, 400, 40);
 		contentPane.add(passwordFieldPass);
