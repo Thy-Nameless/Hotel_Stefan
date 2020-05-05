@@ -1,4 +1,4 @@
-<div align="center"><h1>Hotel Stefan *****</h1><br/><br/>
+<div align="center"><h1>Hotel Stefan *****</h1><br/>
 
 <h2>The finest of the finest, The best of the best.</h2>
  </div>
