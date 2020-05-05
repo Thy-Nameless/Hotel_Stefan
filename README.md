@@ -2,7 +2,7 @@
 
 ## The finest of the finest, The best of the best.
 
-![Logo Hotel Stefan](/recursos/hotelStefan.jpg)
+<p align="center"><img src="/recursos/hotelStefan.jpg"></p>
 
 ---
 
