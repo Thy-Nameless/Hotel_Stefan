@@ -23,7 +23,7 @@ Estado de proyecto / State of project:
 
 - No, la aplicación de github sirve sólamente para obtener opiniones de nuestros clientes sobre versiones nuevas de la aplicación que van saliendo a medida de nuevas demandas.
 
-----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------
 
 #######[Contribution guidelines for this project](/Contributing.md)
 
