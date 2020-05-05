@@ -35,7 +35,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "unused", "serial", "rawtypes","unchecked" })
 public class Hotel extends JFrame {
 
 	private JPanel contentPane;
@@ -64,21 +64,15 @@ public class Hotel extends JFrame {
 	private boolean fechaEntr = false;
 	private boolean fechaSalid = false;
 	private ArrayList<Reserva> listaReservas;
-	@SuppressWarnings("rawtypes")
 	private JComboBox listMesEntrada;
 	private JTextArea textAreaDiaMesEntrada;
-	@SuppressWarnings("rawtypes")
 	private JComboBox listDiaEntrada;
 	private JTextArea textAreaMesAnoEntrada;
-	@SuppressWarnings("rawtypes")
 	private JComboBox listAnoEntrada;
-	@SuppressWarnings("rawtypes")
 	private JComboBox listAnoSalida;
 	private JTextArea textAreaMesAnoSalida;
-	@SuppressWarnings("rawtypes")
 	private JComboBox listDiaSalida;
 	private JTextArea textAreaDiaMesSalida;
-	@SuppressWarnings("rawtypes")
 	private JComboBox listMesSalida;
 	private int mesEntrada;
 	private int mesSalida;
@@ -87,47 +81,34 @@ public class Hotel extends JFrame {
 	private int anoEntrada;
 	private int anoSalida;
 	boolean entrada;
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private final DefaultComboBoxModel dia = new DefaultComboBoxModel(new String[] { "Dia" });
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private final DefaultComboBoxModel dia31 = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel dia30 = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel dia29 = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel dia28 = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28" });
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private final DefaultComboBoxModel dias = new DefaultComboBoxModel(new String[] { "Dia" });
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private final DefaultComboBoxModel dia31s = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel dia30s = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel dia29s = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel dia28s = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel ano2021 = new DefaultComboBoxModel(new String[] { "Año", "2020", "2021" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel ano20 = new DefaultComboBoxModel(new String[] { "Año", "2020" });
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel ano21 = new DefaultComboBoxModel(new String[] { "Año", "2021" });
 	private Point initialClick;
 
@@ -346,7 +327,6 @@ public class Hotel extends JFrame {
 				dumpArray = new ArrayList<Reserva>();
 			}
 		}
-		@SuppressWarnings("rawtypes")
 		Iterator it = listaReservas.iterator();
 		while (it.hasNext()) {
 			contenido += it.next() + "\n";
@@ -462,7 +442,6 @@ public class Hotel extends JFrame {
 	}
 
 	private class ListMesEntradaActionListener implements ActionListener {
-		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public void actionPerformed(ActionEvent e) {
 			String mes = (String) listMesEntrada.getSelectedItem();
 			if (!mes.equals("Mes")) {
@@ -556,7 +535,6 @@ public class Hotel extends JFrame {
 	}
 
 	private class ListAnoEntradaActionListener implements ActionListener {
-		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			String ano = (String) listAnoEntrada.getSelectedItem();
 			if (!ano.equals("Año")) {
@@ -584,7 +562,6 @@ public class Hotel extends JFrame {
 	}
 
 	private class ListMesSalidaActionListener implements ActionListener {
-		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			String mes = (String) listMesSalida.getSelectedItem();
 			if (!mes.equals("Mes")) {
@@ -657,7 +634,6 @@ public class Hotel extends JFrame {
 	}
 
 	private class ListAnoSalidaActionListener implements ActionListener {
-		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public void actionPerformed(ActionEvent e) {
 			String ano = (String) listAnoSalida.getSelectedItem();
 			if (!ano.equals("Año")) {
@@ -725,7 +701,6 @@ public class Hotel extends JFrame {
 
 	/** Método para iniciar todas las variables de la app */
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initApp() {
 		setResizable(false);
 		setUndecorated(true);

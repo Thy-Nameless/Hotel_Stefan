@@ -34,7 +34,7 @@ import java.util.Iterator;
 
 import javax.swing.JTextArea;
 import java.awt.event.MouseMotionAdapter;
-
+@SuppressWarnings({ "unused", "serial" })
 public class ReservasCliente extends JFrame {
 
 	private JPanel contentPane;
