@@ -72,6 +72,23 @@ Estado de proyecto / State of project:
 
 ---
 
+###### [Directrius de contribució d’aquest projecte](/CONTRIBUTING.md)
+
+### Hotel de 5 estrelles, situat a la ciutat d'Alcanyís, creat sobretot per la quantitat de turisme durant la MotoGP d'Aragó.
+¿Perquè serveix està aplicació?
+
+Aquesta aplicació ha estat creada per a la gestió de reserves, facilitant així les reserves als nostres usuaris VIP, ja que és una aplicació no disponible per al públic normal, que han d'utilitzar la pàgina web per realitzar les reserves
+
+Per què està aplicació?
+
+Per poder donar prioritat a algunes reserves que poden resultar més importants que altres i assegurar que cap VIP es quedi sense habitació
+
+Puc fer reserves mitjançant l'aplicació pujada a github?
+
+No, l'aplicació de github serveix només per a obtenir opinions dels nostres clients sobre versions noves de l'aplicació que van sortint a mesura de noves demandes.
+
+---
+
 ###### [Retningslinjer for bidrag til dette projekt](/CONTRIBUTING.md)
 
 ### 5-Stjernet hotel beliggende i byen Alcañiz, skabt takket være turismen omkring Aragón MotoGP
