@@ -11,6 +11,7 @@
 - Dutch translation: Thoowmaz#2953, @thoowmaz
 - Finnish translation: Super-Jesse © | Instinct#0398
 - Catalonian translation: MYK CYK PYK PAWELEK#5971
+- Ukrainian and Russian translations: Chieftain#0143
 
 ---
 
