@@ -11,7 +11,7 @@ Estado de proyecto / State of project:
 
 ---
 
-[Guidelines para las contribuciones sobre el proyecto](/Contributing.md)
+###### [Guidelines para las contribuciones sobre el proyecto](/CONTRIBUTING.md)
 
 ### Hotel de 5 estrellas, ubicado en la ciudad de Alcañiz, creado sobre todo por la cantidad de turismo durante la MotoGP de Aragón.
 
@@ -29,7 +29,7 @@ Estado de proyecto / State of project:
 
 ---
 
-####### [Contribution guidelines for this project](/Contributing.md)
+###### [Contribution guidelines for this project](/CONTRIBUTING.md)
 
 ### 5 star hotel, located in the city of Alcañiz, created thanks to the tourism resolving around the Aragón MotoGP.
 
