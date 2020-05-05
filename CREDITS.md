@@ -11,7 +11,7 @@
 - Dutch translation: Thoowmaz#2953, @thoowmaz
 - Finnish translation: Super-Jesse © | Instinct#0398
 - Catalonian translation: MYK CYK PYK PAWELEK#5971
-
+- General help: OldWhiskeyGuy#9054
 ---
 
 ### If it wasn't for them, the project wouldn't have been such a success, thank you to you all
