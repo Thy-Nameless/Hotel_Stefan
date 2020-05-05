@@ -2,6 +2,8 @@
 
 ## The finest of the finest, The best of the best.
 
+![Logo Hotel Stefan](/recursos/hotelStefan.jpg)
+
 ---
 
 Estado de proyecto / State of project: 
