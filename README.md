@@ -5,6 +5,8 @@
 
 <p align="center"><img src="/recursos/hotelStefan.jpg"></p>
 
+
+
 ---
 
 Estado de proyecto / State of project: 
