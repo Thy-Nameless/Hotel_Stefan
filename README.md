@@ -51,7 +51,7 @@ Estado de proyecto / State of project:
 
 ###### [Contribution guidelines for this project](/CONTRIBUTING.md)
 
-### 5 star hotel, located in the city of Alcañiz, created thanks to the tourism resolving around the Aragón MotoGP.
+### 5 star hotel, located in the city of Alcañiz, created thanks to the tourism revolving around the Aragón MotoGP.
 
 - What is this app for?
 
