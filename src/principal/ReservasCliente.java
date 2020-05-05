@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import java.awt.Frame;
+import java.awt.Point;
+
 import javax.swing.JMenuBar;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JTextArea;
+import java.awt.event.MouseMotionAdapter;
 
 public class ReservasCliente extends JFrame {
 
@@ -49,6 +52,7 @@ public class ReservasCliente extends JFrame {
 	private OperacionReserva operacion = new OperacionReserva();
 	private String usuarioReservas = "";
 	private Reserva reservaRealizada;
+	private Point initialClick;
 
 	/**
 	 * Launch the application.
@@ -187,6 +191,29 @@ public class ReservasCliente extends JFrame {
 			btnSalir.setIcon(new ImageIcon(".\\recursos\\goBackBW.png"));
 		}
 	}
+	private class PanelMouseListener extends MouseAdapter {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			initialClick = e.getPoint();
+            getComponentAt(initialClick);
+		}
+	}
+	private class PanelMouseMotionListener extends MouseMotionAdapter {
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			int thisX = getLocation().x;
+            int thisY = getLocation().y;
+
+            // Determine how much the mouse moved since the initial click
+            int xMoved = e.getX() - initialClick.x;
+            int yMoved = e.getY() - initialClick.y;
+
+            // Move window to this position
+            int X = thisX + xMoved;
+            int Y = thisY + yMoved;
+            setLocation(X, Y);
+		}
+	}
 	/** Todas las variables y los apartados para la ejecución de la app (VIVA NETBEANS) */
 	private void initApp() {
 		setResizable(false);
@@ -246,6 +273,8 @@ public class ReservasCliente extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		panel = new JPanel();
+		panel.addMouseMotionListener(new PanelMouseMotionListener());
+		panel.addMouseListener(new PanelMouseListener());
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		panel.setBounds(0, 0, 1280, 30);

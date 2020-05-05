@@ -19,6 +19,8 @@ import InputOutput.OperacionReserva;
 import estaticos.Reserva;
 
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.SwingConstants;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -31,6 +33,7 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseMotionAdapter;
 
 @SuppressWarnings("serial")
 public class Hotel extends JFrame {
@@ -126,6 +129,7 @@ public class Hotel extends JFrame {
 	private final DefaultComboBoxModel ano20 = new DefaultComboBoxModel(new String[] { "Año", "2020" });
 	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private final DefaultComboBoxModel ano21 = new DefaultComboBoxModel(new String[] { "Año", "2021" });
+	private Point initialClick;
 
 	/**
 	 * Launch the application.
@@ -309,7 +313,6 @@ public class Hotel extends JFrame {
 			dumpArray = new ArrayList<Reserva>();
 		}
 		if (fecha) {
-			System.out.println("jestem w fch");
 			String fechaEntrString = (diaEntrada + "/" + mesEntrada + "/" + anoEntrada);
 			String fechaSalidString = (diaSalida + "/" + mesSalida + "/" + anoSalida);
 			for (Reserva res : listaReservas) {
@@ -323,11 +326,8 @@ public class Hotel extends JFrame {
 		} else {
 			comprobarFechaEntrSalid();
 			if (fechaEntr) {
-				System.out.println("jestem w fch entr");
 				String fechaEntrString = (diaEntrada + "/" + mesEntrada + "/" + anoEntrada);
 				for (Reserva res : listaReservas) {
-					System.out.println(fechaEntrString);
-					System.out.println(res.getFechaEntrada());
 					if (res.getFechaEntrada().equals(fechaEntrString))
 						dumpArray.add(res);
 				}
@@ -336,7 +336,6 @@ public class Hotel extends JFrame {
 				dumpArray = new ArrayList<Reserva>();
 			}
 			if (fechaSalid) {
-				System.out.println("jestem w fch salid");
 				String fechaSalidString = (diaSalida + "/" + mesSalida + "/" + anoSalida);
 				for (Reserva res : listaReservas) {
 					if (res.getFechaSalida().equals(fechaSalidString))
@@ -700,6 +699,29 @@ public class Hotel extends JFrame {
 			}
 		}
 	}
+	private class PanelMouseListener extends MouseAdapter {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			initialClick = e.getPoint();
+            getComponentAt(initialClick);
+		}
+	}
+	private class PanelMouseMotionListener extends MouseMotionAdapter {
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			int thisX = getLocation().x;
+            int thisY = getLocation().y;
+
+            // Determine how much the mouse moved since the initial click
+            int xMoved = e.getX() - initialClick.x;
+            int yMoved = e.getY() - initialClick.y;
+
+            // Move window to this position
+            int X = thisX + xMoved;
+            int Y = thisY + yMoved;
+            setLocation(X, Y);
+		}
+	}
 
 	/** Método para iniciar todas las variables de la app */
 
@@ -914,6 +936,8 @@ public class Hotel extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		panel = new JPanel();
+		panel.addMouseMotionListener(new PanelMouseMotionListener());
+		panel.addMouseListener(new PanelMouseListener());
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		panel.setBounds(0, 0, 1280, 30);
