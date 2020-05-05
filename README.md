@@ -1,6 +1,21 @@
-Hotel Stefan *****
+# Hotel Stefan *****
 
-Hotel de 5 estrellas, ubicado en la ciudad de Alcañiz, creado sobre todo por la cantidad de turismo durante la MotoGP de Aragón.
+## The finest of the finest, The best of the best.
+
+---
+
+Estado de proyecto / State of project: 
+
+- [x] Creación de proyecto y primeros commits / Creation and First Commits
+- [x] Funcionalidad básica / Basic functionality
+- [x] Conexión a base de datos / Database connection
+- [ ] Toques finales / Finishing touches
+
+---
+
+###### [Guidelines para las contribuciones sobre el proyecto](/CONTRIBUTING.md)
+
+### Hotel de 5 estrellas, ubicado en la ciudad de Alcañiz, creado sobre todo por la cantidad de turismo durante la MotoGP de Aragón.
 
 - ¿Para que sirve está aplicación?
 
@@ -14,9 +29,11 @@ Hotel de 5 estrellas, ubicado en la ciudad de Alcañiz, creado sobre todo por la
 
 - No, la aplicación de github sirve sólamente para obtener opiniones de nuestros clientes sobre versiones nuevas de la aplicación que van saliendo a medida de nuevas demandas.
 
-----------------------------------------------------------------------------------------------------------------------------------
+---
 
-5 star hotel, located in the city of Alcañiz, created thanks to the tourism resolving around the Aragón MotoGP.
+###### [Contribution guidelines for this project](/CONTRIBUTING.md)
+
+### 5 star hotel, located in the city of Alcañiz, created thanks to the tourism resolving around the Aragón MotoGP.
 
 - What is this app for?
 
