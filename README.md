@@ -9,7 +9,7 @@
 
 ---
 
-###### [Thanks to help of many individuals](/CREDITS.md), readme is available in:
+###### [Thanks to the help from many individuals](/CREDITS.md), Readme is available in the following languages:
 - Español
 - English
 - Français
