@@ -185,11 +185,11 @@ public class LogIn extends JFrame {
 		public void focusLost(FocusEvent arg0) {
 
 			if (String.copyValueOf(passwordFieldPass.getPassword()).equals("")) {
-				passwordFieldPass.setText("Contrasena");
+				passwordFieldPass.setText("Contraseña");
 			}
 
 			if ((passwordFieldPass.getPassword().toString().equals(""))
-					&& (passwordFieldPass.getPassword().toString().equals("Contrasena"))) {
+					&& (passwordFieldPass.getPassword().toString().equals("Contraseña"))) {
 				passwordFieldPass.setText(passwordFieldPass.getPassword().toString());
 			}
 
@@ -201,7 +201,7 @@ public class LogIn extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if ((textFieldUser.getText().equals("") || String.copyValueOf(passwordFieldPass.getPassword()).equals(""))
 					|| (textFieldUser.getText().equals("Usuario")
-							|| String.copyValueOf(passwordFieldPass.getPassword()).equals("Contrasena"))) {
+							|| String.copyValueOf(passwordFieldPass.getPassword()).equals("Contraseña"))) {
 				JOptionPane.showMessageDialog(null, "Valores no introducidos");
 			}
 			ArrayList<Usuario> vUsuarios = IoDatos.leerDatos();
@@ -227,7 +227,7 @@ public class LogIn extends JFrame {
 				}
 			} else {
 				JOptionPane.showMessageDialog(null,
-						"Los datos del usuario introducidos no coinciden o este no está registrado");
+						"Los datos del usuario introducidos no coinciden o este no esta registrado");
 			}
 		}
 		@Override
@@ -333,7 +333,7 @@ public class LogIn extends JFrame {
 		passwordFieldPass.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passwordFieldPass.setBounds(432, 350, 400, 40);
 		contentPane.add(passwordFieldPass);
-		passwordFieldPass.setText("Contrasena");
+		passwordFieldPass.setText("Contraseña");
 
 		lblLogin = new JLabel("Acceso");
 		lblLogin.setFocusable(false);
