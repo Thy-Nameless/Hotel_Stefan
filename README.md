@@ -9,6 +9,17 @@
 
 ---
 
+###### [Thanks to help of many individuals](/CREDITS.md), readme is available in:
+- Español
+- English
+- Français
+- Catalans
+- Nederlands
+- Dansk
+- Suomalainen
+- Română
+---
+
 Estado de proyecto / State of project: 
 
 - [x] Creación de proyecto y primeros commits / Creation and First Commits
