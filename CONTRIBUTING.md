@@ -1,16 +1,16 @@
 # Contribuciones
 Nos encanta cualquier información que puede ser aportada! Nos encantaría hacer las contribuciones ha este projecto lo más fáciles y transparentes, ya sea:
 
-- Reportar un bug
-- Discutir el estado actual del código
-- Submitir una mejora
-- Proponer nuevas funciones
-- Ayudarnos con el mantenimiendo 
+- Reportar un bug.
+- Discutir el estado actual del código.
+- Submitir una mejora.
+- Proponer nuevas funciones.
+- Ayudarnos con el mantenimiendo.
 
 ## Developeamos con github
 Usamos github para hostear nuestro código, llevar un seguimiento de las issues y mejoras, al igual que aceptar pull requests.
 
-## Usamos [Github Flow](https://guides.github.com/introduction/flow/index.html), Para que todos los cambios en el código pasen por un Pull Request 
+## Usamos [Github Flow](https://guides.github.com/introduction/flow/index.html), Para que todos los cambios en el código pasen por un Pull Request.
 Los Pull Request son la mejor manera para proponer nuevos cambios al código (usamos [Github Flow](https://guides.github.com/introduction/flow/index.html)). Aceptamos todo tipo de pull requests:
 
 - Forkea el repositorio para crear tu propio branch "master".
