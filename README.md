@@ -9,6 +9,18 @@
 
 ---
 
+###### [Thanks to help of many individuals](/CREDITS.md), readme is available in:
+- Español
+- English
+- Français
+- Catalans
+- Nederlands
+- Dansk
+- Suomalainen
+- Română
+
+---
+
 Estado de proyecto / State of project: 
 
 - [x] Creación de proyecto y primeros commits / Creation and First Commits
@@ -69,6 +81,23 @@ Estado de proyecto / State of project:
 - Puis-je faire des réservations via la version github de cette appli?
 
 - Evidemment que non! Il s'agit d'une application factice uniquement utilisée pour des tests, liée à une base de données sans importance. Le seul moyen d'avoir accès à l'application en question est de nous contacter par téléphone ou emails accessibles sur notre site internet.
+
+---
+
+###### [Directrius de contribució d’aquest projecte](/CONTRIBUTING.md)
+
+### Hotel de 5 estrelles, situat a la ciutat d'Alcanyís, creat sobretot per la quantitat de turisme durant la MotoGP d'Aragó.
+¿Perquè serveix està aplicació?
+
+Aquesta aplicació ha estat creada per a la gestió de reserves, facilitant així les reserves als nostres usuaris VIP, ja que és una aplicació no disponible per al públic normal, que han d'utilitzar la pàgina web per realitzar les reserves
+
+Per què està aplicació?
+
+Per poder donar prioritat a algunes reserves que poden resultar més importants que altres i assegurar que cap VIP es quedi sense habitació
+
+Puc fer reserves mitjançant l'aplicació pujada a github?
+
+No, l'aplicació de github serveix només per a obtenir opinions dels nostres clients sobre versions noves de l'aplicació que van sortint a mesura de noves demandes.
 
 ---
 
