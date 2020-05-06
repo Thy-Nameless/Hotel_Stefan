@@ -22,6 +22,7 @@
 - Română
 - Українська
 - Pусский
+- Čeština
 
 ---
 
@@ -229,3 +230,21 @@ here
 Могу ли я оформить бронирование через github версию приложения?
 
 Конечно, нет! Это пробная версия приложения, созданная лишь для проверки работоспособности и присоединенная к совершенно неактуальной базе данных. Единственным способом получения приложения остается обращение к нам по телефону или электронной почте, указанных на нашем сайте.
+
+---
+
+###### [Pokyny pro přispívání pro tento projekt](/CONTRIBUTING.md)
+
+## 5*hvezdickovy hotel, ktery se nachazi ve meste Alcañiz, zalozeny hlavne na mnozstvi turistu behem Moto GP. Aragonu.
+
+- K cemu nam slouzi Tato aplikace?
+
+- Tato aplikace byla vytvorena  na rizeni rezervaci a usnadneni rezervaci pro nase klienty  VIP, jelikoz Tato aplikace neni dostupna pro - obycejne publikum ktere ma pouzit webove stranky na tvorbu rezerv.
+
+- Proc tahle aplikace?
+
+- Aby se mohla dat prednost nekterym rezervam,ktere mohou dat lepsi vysledky nez ostatni a zarucit aby zadny VIP nezustal vez pokoje.
+
+- Mohou Udelat reservaci na zaklade aplikace GitHub?
+
+- Ne, aplikace GitHub slouzi pouze na pripominky nasich klientu o novych aplikacich ktere se objevi na opatreni k novym pozadavkum.
