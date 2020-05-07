@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
+import InputOutput.IoBBDD;
 import InputOutput.IoDatos;
 import InputOutput.OperacionHabitacion;
 import estaticos.Usuario;
@@ -42,6 +43,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.text.SimpleDateFormat;
 
 @SuppressWarnings({ "unused", "serial" })
 public class LogIn extends JFrame {
@@ -61,6 +63,7 @@ public class LogIn extends JFrame {
 	private boolean maximizado = false;
 	private Point initialClick;
 	private ArrayList<Usuario> usus = new ArrayList<Usuario>();
+	private IoBBDD bbdd;
 	// private ArrayList<Usuario> vUsuarios;
 	/**
 	 * Launch the application.
@@ -210,6 +213,7 @@ public class LogIn extends JFrame {
 				for (Usuario user : vUsuarios) {
 					if (user.getNombreUsuario().equals(textFieldUser.getText())) {
 						if (user.isEsAdmin()) {
+							bbdd.registrarLogIn(textFieldUser.getText(), String.valueOf(passwordFieldPass.getPassword()), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()), true);
 							Hotel hotel = new Hotel();
 							hotel.setVisible(true);
 							dispose();
@@ -218,6 +222,7 @@ public class LogIn extends JFrame {
 
 						if (!user.isEsAdmin()) {
 							String usuario = textFieldUser.getText();
+							bbdd.registrarLogIn(textFieldUser.getText(), String.valueOf(passwordFieldPass.getPassword()), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()), false);
 							ReservasCliente cliente = new ReservasCliente(usuario);
 							cliente.setVisible(true);
 							dispose();
@@ -371,5 +376,7 @@ public class LogIn extends JFrame {
 		lblFondo.setFocusable(true);
 		lblFondo.requestFocus();
 		// vUsuarios = IoDatos.leerDatos();
+		
+		bbdd = new IoBBDD();
 	}
 }
