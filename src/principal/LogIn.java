@@ -24,6 +24,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
+import InputOutput.IoBBDD;
+import InputOutput.IoDatos;
+import InputOutput.OperacionHabitacion;
+import estaticos.Usuario;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
@@ -42,6 +47,7 @@ import com.toedter.calendar.JCalendar;
 
 import InputOutput.IoReservas;
 import estaticos.Usuario;
+import java.text.SimpleDateFormat;
 
 @SuppressWarnings({ "unused", "serial" })
 public class LogIn extends JFrame {
@@ -61,7 +67,8 @@ public class LogIn extends JFrame {
 	private boolean maximizado = false;
 	private Point initialClick;
 	private IoReservas io;
-
+	private ArrayList<Usuario> usus = new ArrayList<Usuario>();
+	private IoBBDD bbdd;
 	// private ArrayList<Usuario> vUsuarios;
 	/**
 	 * Launch the application.
@@ -205,6 +212,7 @@ public class LogIn extends JFrame {
 							|| String.copyValueOf(passwordFieldPass.getPassword()).equals("Contraseña"))) {
 				JOptionPane.showMessageDialog(null, "Valores no introducidos");
 			}
+
 			ArrayList<Usuario> vUsuarios = io.devolverUsuarios();
 			String contrasena = String.valueOf(passwordFieldPass.getPassword());
 			for (Usuario user : vUsuarios) {
@@ -367,5 +375,7 @@ public class LogIn extends JFrame {
 		lblFondo.setFocusable(true);
 		lblFondo.requestFocus();
 		// vUsuarios = IoDatos.leerDatos();
+		
+		bbdd = new IoBBDD();
 	}
 }
