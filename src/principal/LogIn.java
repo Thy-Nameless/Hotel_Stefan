@@ -43,6 +43,10 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import com.toedter.calendar.JCalendar;
+
+import InputOutput.IoReservas;
+import estaticos.Usuario;
 import java.text.SimpleDateFormat;
 
 @SuppressWarnings({ "unused", "serial" })
@@ -62,6 +66,7 @@ public class LogIn extends JFrame {
 	private JLabel btnSignup;
 	private boolean maximizado = false;
 	private Point initialClick;
+	private IoReservas io;
 	private ArrayList<Usuario> usus = new ArrayList<Usuario>();
 	private IoBBDD bbdd;
 	// private ArrayList<Usuario> vUsuarios;
@@ -207,33 +212,27 @@ public class LogIn extends JFrame {
 							|| String.copyValueOf(passwordFieldPass.getPassword()).equals("Contraseña"))) {
 				JOptionPane.showMessageDialog(null, "Valores no introducidos");
 			}
-			ArrayList<Usuario> vUsuarios = IoDatos.leerDatos();
 
-			if (IoDatos.comprobarUser(textFieldUser.getText(), String.valueOf(passwordFieldPass.getPassword()))) {
-				for (Usuario user : vUsuarios) {
-					if (user.getNombreUsuario().equals(textFieldUser.getText())) {
-						if (user.isEsAdmin()) {
-							bbdd.registrarLogIn(textFieldUser.getText(), String.valueOf(passwordFieldPass.getPassword()), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()), true);
-							Hotel hotel = new Hotel();
-							hotel.setVisible(true);
-							dispose();
-							break;
-						}
-
-						if (!user.isEsAdmin()) {
-							String usuario = textFieldUser.getText();
-							bbdd.registrarLogIn(textFieldUser.getText(), String.valueOf(passwordFieldPass.getPassword()), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()), false);
-							ReservasCliente cliente = new ReservasCliente(usuario);
-							cliente.setVisible(true);
-							dispose();
-							break;
-						}
+			ArrayList<Usuario> vUsuarios = io.devolverUsuarios();
+			String contrasena = String.valueOf(passwordFieldPass.getPassword());
+			for (Usuario user : vUsuarios) {
+				if (user.getNombreUsuario().equals(textFieldUser.getText()) && user.getPassword().equals(contrasena)) {
+					if (user.isEsAdmin()) {
+						Hotel hotel = new Hotel();
+						hotel.setVisible(true);
+						dispose();
+						break;
+					}
+					if (!user.isEsAdmin()) {
+						String usuario = textFieldUser.getText();
+						ReservasCliente cliente = new ReservasCliente(usuario);
+						cliente.setVisible(true);
+						dispose();
+						break;
 					}
 				}
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Los datos del usuario introducidos no coinciden o este no esta registrado");
-			}
+			} 
+			JOptionPane.showMessageDialog(null,"Los datos del usuario introducidos no coinciden o este no esta registrado");
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {

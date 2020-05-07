@@ -1,7 +1,6 @@
 package estaticos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Usuario implements Serializable{
@@ -9,7 +8,6 @@ public class Usuario implements Serializable{
 	private String password;
 	private boolean esAdmin;
 	@SuppressWarnings("unused")
-	private ArrayList<Reserva> vReserva;
 
 	public Usuario(String nombreUsuario, String password, boolean esAdmin) {
 		super();

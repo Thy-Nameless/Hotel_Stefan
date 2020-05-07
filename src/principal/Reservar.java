@@ -20,7 +20,9 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
-import InputOutput.OperacionHabitacion;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
+
 import estaticos.Reserva;
 
 import java.awt.Font;
@@ -44,12 +46,18 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseMotionAdapter;
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JDateChooser;
+import java.beans.PropertyChangeListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.beans.PropertyChangeEvent;
 
 @SuppressWarnings({ "unused", "serial", "rawtypes","unchecked" })
 public class Reservar extends JFrame {
 
 	private JPanel contentPane;
-	private JLabel lblNewLabel;
+	private JLabel label;
 	private JPanel panel;
 	private JLabel lblNombreApp;
 	private JLabel lblCerrar;
@@ -76,7 +84,6 @@ public class Reservar extends JFrame {
 	private JRadioButton rdbtnHombre;
 	private JRadioButton rdbtnMujer;
 	private final ButtonGroup buttonGroupSexo = new ButtonGroup();
-	private JTextArea textAreaDiaMesEntrada;
 	private JTextArea txtrFechaEntrada;
 	private JTextArea txtrFechaSalida;
 	private JTextArea txtrNumeroNoches;
@@ -86,30 +93,20 @@ public class Reservar extends JFrame {
 	private JLabel btnPagar;
 	private JLabel btnSalir;
 	private JLabel lblComprobacionHabitacion;
-	private OperacionHabitacion operaciones = new OperacionHabitacion();
+	//private OperacionHabitacion operaciones = new OperacionHabitacion();
 	private ImageIcon imagentick = new ImageIcon(".\\recursos\\tick.png");
 	private ImageIcon imagenx = new ImageIcon(".\\recursos\\nodisponible.png");
-	private int pos;
 	private Reserva reserva;
 	private String usuarioReservas = "";
-	private JComboBox listDiaEntrada;
-	private JTextArea textAreaMesAnoEntrada;
-	private JComboBox listAnoEntrada;
-	private JComboBox listMesSalida;
-	private JTextArea textAreaDiaMesSalida;
-	private JComboBox listDiaSalida;
-	private JTextArea textAreaMesAnoSalida;
-	private JComboBox listAnoSalida;
-	private JComboBox listMesEntrada;
 	private int mesEntrada;
 	private int mesSalida;
 	private int diaEntrada;
 	private int diaSalida;
 	private int anoEntrada;
 	private int anoSalida;
-	boolean entrada;
+	//boolean entrada;
 	@SuppressWarnings({  })
-	private final DefaultComboBoxModel dia = new DefaultComboBoxModel(new String[] { "Dia" });
+	/**private final DefaultComboBoxModel dia = new DefaultComboBoxModel(new String[] { "Dia" });
 	private final DefaultComboBoxModel dia31 = new DefaultComboBoxModel(
 			new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" });
@@ -137,9 +134,13 @@ public class Reservar extends JFrame {
 					"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28" });
 	private final DefaultComboBoxModel ano2021 = new DefaultComboBoxModel(new String[] { "Año", "2020", "2021" });
 	private final DefaultComboBoxModel ano20 = new DefaultComboBoxModel(new String[] { "Año", "2020" });
-	private final DefaultComboBoxModel ano21 = new DefaultComboBoxModel(new String[] { "Año", "2021" });
+	private final DefaultComboBoxModel ano21 = new DefaultComboBoxModel(new String[] { "Año", "2021" });*/
 	private Point initialClick;
-
+	private Date hoy = Calendar.getInstance().getTime();
+	private JDateChooser dateChooserEntrada;
+	private JDateChooser dateChooserSalida;
+	private Calendar calEntrada;
+	private Calendar calSalida;
 	/**
 	 * Launch the application.
 	 */
@@ -160,13 +161,16 @@ public class Reservar extends JFrame {
 	 * Create the frame.
 	 */
 	public Reservar() {
+		
 		initApp();
+		
 	}
 
 	public Reservar(String usuario) {
-		operaciones.cargarHabitaciones();
+		//operaciones.cargarHabitaciones();
 		usuarioReservas = usuario;
 		initApp();
+		
 	}
 
 	/** Método para añadir y quitar texto de los apartados de entrada de texto */
@@ -194,7 +198,7 @@ public class Reservar extends JFrame {
 
 	private void comprobarBotonEnviar() {
 		if (!textNombre.getText().equals("Nombre") && !textApellido.getText().equals("Apellido")
-				&& !textFieldImporte.getText().equals("0") && pos != 100) {
+				&& !textFieldImporte.getText().equals("0")) {
 			btnPagar.setEnabled(true);
 		} else {
 			btnPagar.setEnabled(false);
@@ -203,7 +207,7 @@ public class Reservar extends JFrame {
 
 	/** Método para comprobar si existen habitaciones del tipo elegido */
 
-	private void comprobarDisponibilidad() {
+	/**private void comprobarDisponibilidad() {
 
 		String seleccion = "";
 		if (rdbtnDui.isSelected()) {
@@ -282,7 +286,7 @@ public class Reservar extends JFrame {
 		} else {
 			lblComprobacionHabitacion.setIcon(imagenx);
 		}
-	}
+	}*/
 
 	/** Método para comprobar el importe de las habitaciones */
 	private void comprobarImporte() {
@@ -356,72 +360,27 @@ public class Reservar extends JFrame {
 		}
 	}
 
-	/** Método para imprimir los números de las noches */
+	
+	
+	//Método para imprimir los números de las noches 
 	private void comprobarNumNoches() {
-		textFieldNumeroNoches.setText("");
+		textFieldNumeroNoches.setText("0");
+		textFieldImporte.setText("0");
+		try {
+			LocalDate entrada = new LocalDate(calEntrada.getTimeInMillis());
+			LocalDate salida = new LocalDate(calSalida.getTimeInMillis());
+			int dias = Days.daysBetween(entrada, salida).getDays();
+			if (dias > 0) {
+				textFieldNumeroNoches.setText(Integer.toString(dias));
+			}
+		} catch (Exception e) {
+			
+		}
+		
 
 		// if (comprobarMes(anoSalida, mesSalida, diaSalida) && comprobarMes(anoEntrada,
 		// mesEntrada, diaEntrada)) {
-		int mesDiferencia = mesSalida - mesEntrada;
-		if (anoSalida != 0 && anoEntrada != 0) {
-			switch (mesDiferencia) {
-			case -11:
-				int diasDiferencia = 31 - diaEntrada + diaSalida;
-				if (diasDiferencia < 32) {
-					textFieldNumeroNoches.setText(Integer.toString(diasDiferencia));
-					comprobarImporte();
-				}
-				break;
-			case 0:
-				int diasDiferencia2 = diaSalida - diaEntrada;
-				if (diasDiferencia2 > 0) {
-					textFieldNumeroNoches.setText(Integer.toString(diasDiferencia2));
-					comprobarImporte();
-				} else {
-					diasDiferencia2 = 0;
-					textFieldImporte.setText("0");
-					textFieldNumeroNoches.setText("0");
-				}
-				break;
-			case 1:
-				int diasDiferencia3 = 0;
-				switch (mesEntrada) {
-				case 1:
-				case 3:
-				case 5:
-				case 7:
-				case 8:
-				case 10:
-				case 12:
-					diasDiferencia3 = 31 - diaEntrada + diaSalida;
-					break;
-				case 4:
-				case 6:
-				case 9:
-				case 11:
-					diasDiferencia3 = 30 - diaEntrada + diaSalida;
-					break;
-				case 2:
-					if (((anoSalida % 4 == 0) && !(anoSalida % 100 == 0)) || (anoSalida % 400 == 0)) {
-						diasDiferencia3 = 29 - diaEntrada + diaSalida;
-					} else {
-						diasDiferencia3 = 28 - diaEntrada + diaSalida;
-					}
-					break;
-				}
-				textFieldNumeroNoches.setText(Integer.toString(diasDiferencia3));
-				comprobarImporte();
-				break;
-			default:
-				textFieldNumeroNoches.setText("0");
-				textFieldImporte.setText("0");
-				break;
-			// }
-			}
-		} else {
-			textFieldNumeroNoches.setText("0");
-			textFieldImporte.setText("0");
-		}
+		comprobarImporte();
 		comprobarBotonEnviar();
 
 	}
@@ -534,16 +493,16 @@ public class Reservar extends JFrame {
 	private String sacarHabitacion() {
 		String seleccionHabitacion = "";
 		if (rdbtnDui.isSelected()) {
-			seleccionHabitacion = "dui";
+			seleccionHabitacion = "DUI";
 		}
 		if (rdbtnDb.isSelected()) {
-			seleccionHabitacion = "db";
+			seleccionHabitacion = "DB";
 		}
 		if (rdbtnTri.isSelected()) {
-			seleccionHabitacion = "tri";
+			seleccionHabitacion = "TRI";
 		}
 		if (rdbtnSuite.isSelected()) {
-			seleccionHabitacion = "suite";
+			seleccionHabitacion = "SUITE";
 		}
 
 		return seleccionHabitacion;
@@ -553,16 +512,16 @@ public class Reservar extends JFrame {
 	private String sacarRegimen() {
 		String seleccionRegimen = "";
 		if (rdbtnHa.isSelected()) {
-			seleccionRegimen = "ha";
+			seleccionRegimen = "HA";
 		}
 		if (rdbtnAd.isSelected()) {
-			seleccionRegimen = "ad";
+			seleccionRegimen = "AD";
 		}
 		if (rdbtnMp.isSelected()) {
-			seleccionRegimen = "mp";
+			seleccionRegimen = "MP";
 		}
 		if (rdbtnPc.isSelected()) {
-			seleccionRegimen = "pc";
+			seleccionRegimen = "PC";
 		}
 		return seleccionRegimen;
 	}
@@ -578,10 +537,11 @@ public class Reservar extends JFrame {
 		return seleccionSexo;
 	}
 
+/** método previamente
 	private int reservarHabitacion() {
 		operaciones.reservarHabitacion(pos);
 		return operaciones.sacarNumeroHabitacion(pos);
-	}
+	}*/
 
 	private class BtnPagarMouseListener extends MouseAdapter {
 		@Override
@@ -590,8 +550,7 @@ public class Reservar extends JFrame {
 				reserva = new Reserva(usuarioReservas, textNombre.getText(), textApellido.getText(),
 						(diaEntrada + "/" + mesEntrada + "/" + anoEntrada),
 						(diaSalida + "/" + mesSalida + "/" + anoSalida), sacarHabitacion(), sacarRegimen(), sacarSexo(),
-						Integer.parseInt(textFieldImporte.getText()), Integer.parseInt(textFieldNumeroNoches.getText()),
-						reservarHabitacion());
+						Integer.parseInt(textFieldImporte.getText()), Integer.parseInt(textFieldNumeroNoches.getText()));
 				new Pago(usuarioReservas, reserva).setVisible(true);
 				dispose();
 			}
@@ -631,7 +590,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -639,7 +597,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -647,7 +604,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -655,7 +611,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -663,7 +618,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -671,7 +625,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -679,7 +632,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -687,7 +639,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			comprobarImporte();
-			comprobarDisponibilidad();
 		}
 	}
 
@@ -702,242 +653,6 @@ public class Reservar extends JFrame {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			comprobarBotonEnviar();
-		}
-	}
-
-	private class ListMesEntradaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String mes = (String) listMesEntrada.getSelectedItem();
-			if (!mes.equals("Mes")) {
-				switch (mes) {
-				case "Enero":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 1;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Enero", "Febrero" }));
-					break;
-				case "Febrero":
-					String ano = (String) listAnoEntrada.getSelectedItem();
-					if (!ano.equals("Año")) {
-						int anoInt = Integer.parseInt(ano);
-						if ((((anoInt % 4 == 0) && !(anoInt % 100 == 0)) || (anoInt % 400 == 0))) {
-							listDiaEntrada.setModel(dia29);
-						} else {
-							listDiaEntrada.setModel(dia28);
-						}
-					} else {
-						listDiaEntrada.setModel(dia28);
-					}
-					mesEntrada = 2;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Febrero", "Marzo" }));
-					break;
-				case "Marzo":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 3;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Marzo", "Abril" }));
-					break;
-				case "Abril":
-					listDiaEntrada.setModel(dia30);
-					mesEntrada = 4;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Abril", "Mayo" }));
-					break;
-				case "Mayo":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 5;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Mayo", "Junio" }));
-					break;
-				case "Junio":
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Junio", "Julio" }));
-					listDiaEntrada.setModel(dia30);
-					mesEntrada = 6;
-					break;
-				case "Julio":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 7;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Julio", "Agosto" }));
-					break;
-				case "Agosto":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 8;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Agosto", "Septiembre" }));
-					break;
-				case "Septiembre":
-					listDiaEntrada.setModel(dia30);
-					mesEntrada = 9;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Septiembre", "Octubre" }));
-					break;
-				case "Octubre":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 10;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Octubre", "Noviembre" }));
-					break;
-				case "Noviembre":
-					listDiaEntrada.setModel(dia30);
-					mesEntrada = 11;
-					listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Noviembre", "Diciembre" }));
-					break;
-				case "Diciembre":
-					listDiaEntrada.setModel(dia31);
-					mesEntrada = 12;
-					if (anoEntrada == 2020 && anoSalida == 2021) {
-						listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Enero" }));
-					} else {
-						if (anoEntrada == 2020 && anoSalida == 2020) {
-							listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Diciembre" }));
-						} else {
-							listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes" }));
-						}
-					}
-
-					break;
-				}
-
-			} else {
-				mesEntrada = 0;
-				listDiaEntrada.setModel(dia);
-			}
-		}
-	}
-
-	private class ListAnoEntradaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String ano = (String) listAnoEntrada.getSelectedItem();
-			if (!ano.equals("Año")) {
-				anoEntrada = Integer.parseInt(ano);
-				switch (anoEntrada) {
-				case 2020:
-					if (mesEntrada == 12) {
-						listAnoSalida.setModel(ano2021);
-					} else {
-						if (mesEntrada == 2) {
-							listDiaEntrada.setModel(dia29);
-						}
-						listAnoSalida.setModel(ano20);
-					}
-
-					break;
-				case 2021:
-					listAnoSalida.setModel(ano21);
-					break;
-				}
-				comprobarNumNoches();
-			} else {
-				anoEntrada = 0;
-			}
-		}
-	}
-
-	private class ListMesSalidaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String mes = (String) listMesSalida.getSelectedItem();
-			if (!mes.equals("Mes")) {
-				switch (mes) {
-				case "Enero":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 1;
-					break;
-				case "Febrero":
-					String ano = (String) listAnoSalida.getSelectedItem();
-					if (!ano.equals("Año")) {
-						int anoInt = Integer.parseInt(ano);
-						if ((((anoInt % 4 == 0) && !(anoInt % 100 == 0)) || (anoInt % 400 == 0))) {
-							listDiaSalida.setModel(dia29s);
-						} else {
-							listDiaSalida.setModel(dia28s);
-						}
-					} else {
-						listDiaSalida.setModel(dia28s);
-					}
-					mesSalida = 2;
-					break;
-				case "Marzo":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 3;
-					break;
-				case "Abril":
-					listDiaSalida.setModel(dia30s);
-					mesSalida = 4;
-					break;
-				case "Mayo":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 5;
-					break;
-				case "Junio":
-					listDiaSalida.setModel(dia30s);
-					mesSalida = 6;
-					break;
-				case "Julio":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 7;
-					break;
-				case "Agosto":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 8;
-					break;
-				case "Septiembre":
-					listDiaSalida.setModel(dia30s);
-					mesSalida = 9;
-					break;
-				case "Octubre":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 10;
-					break;
-				case "Noviembre":
-					listDiaSalida.setModel(dia30s);
-					mesSalida = 11;
-					break;
-				case "Diciembre":
-					listDiaSalida.setModel(dia31s);
-					mesSalida = 12;
-					break;
-				}
-
-			} else {
-				mesSalida = 0;
-				listDiaSalida.setModel(dias);
-			}
-		}
-	}
-
-	private class ListAnoSalidaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String ano = (String) listAnoSalida.getSelectedItem();
-			if (!ano.equals("Año")) {
-				anoSalida = Integer.parseInt(ano);
-				if (mesEntrada == 12) {
-					switch (anoSalida) {
-					case 2020:
-						listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Diciembre" }));
-						break;
-					case 2021:
-						listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Enero" }));
-						break;
-					}
-				}
-				comprobarNumNoches();
-			} else {
-				anoSalida = 0;
-			}
-		}
-	}
-
-	private class ListDiaEntradaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String diaEntradaStr = (String) listDiaEntrada.getSelectedItem();
-			if (!diaEntradaStr.equals("Dia")) {
-				diaEntrada = Integer.parseInt(diaEntradaStr);
-				comprobarNumNoches();
-			}
-
-		}
-	}
-
-	private class ListDiaSalidaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String diaSalidaStr = (String) listDiaSalida.getSelectedItem();
-			if (!diaSalidaStr.equals("Dia")) {
-				diaSalida = Integer.parseInt(diaSalidaStr);
-				comprobarNumNoches();
-			}
 		}
 	}
 	private class PanelMouseListener extends MouseAdapter {
@@ -963,12 +678,43 @@ public class Reservar extends JFrame {
             setLocation(X, Y);
 		}
 	}
+	private class DateChooserPropertyChangeListener implements PropertyChangeListener {
+		public void propertyChange(PropertyChangeEvent evt) {
+			Date dateEntrada = new Date();
+			try {
+				dateEntrada = dateChooserEntrada.getDate();
+				calEntrada = Calendar.getInstance();
+				calEntrada.setTime(dateEntrada);
+				mesEntrada = calEntrada.get(Calendar.MONTH);
+				diaEntrada = calEntrada.get(Calendar.DAY_OF_MONTH);
+				anoEntrada = calEntrada.get(Calendar.YEAR);
+				comprobarNumNoches();
+			} catch (Exception e) {
+			}
+		}
+	}
+	private class DateChooserSalidaPropertyChangeListener implements PropertyChangeListener {
+		@SuppressWarnings("static-access")
+		public void propertyChange(PropertyChangeEvent evt) {
+			Date dateSalida = new Date();
+			try {
+				dateSalida = dateChooserSalida.getDate();
+				calSalida = Calendar.getInstance();
+				calSalida.setTime(dateSalida);
+				mesSalida = calSalida.get(Calendar.MONTH);
+				diaSalida = calSalida.get(Calendar.DAY_OF_MONTH);
+				anoSalida = calSalida.get(Calendar.YEAR);
+				comprobarNumNoches();
+			} catch (Exception e) {
+			}
+		}
+	}
 
 	/**
 	 * La inicialización de todas las variables y todos los apartados del jframe
 	 */
 	private void initApp() {
-		operaciones.cargarHabitaciones();
+		//operaciones.cargarHabitaciones();
 		setResizable(false);
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -977,73 +723,16 @@ public class Reservar extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		listMesEntrada = new JComboBox();
-		listMesEntrada.addActionListener(new ListMesEntradaActionListener());
-		listMesEntrada.setModel(new DefaultComboBoxModel(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril",
-				"Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-		listMesEntrada.setBounds(881, 189, 136, 30);
-		contentPane.add(listMesEntrada);
-
-		listAnoSalida = new JComboBox();
-		listAnoSalida.addActionListener(new ListAnoSalidaActionListener());
-		listAnoSalida.setModel(new DefaultComboBoxModel(new String[] { "Año" }));
-		listAnoSalida.setBounds(1131, 239, 80, 30);
-		contentPane.add(listAnoSalida);
-
-		textAreaDiaMesSalida = new JTextArea();
-		textAreaDiaMesSalida.setText("/");
-		textAreaDiaMesSalida.setOpaque(false);
-		textAreaDiaMesSalida.setForeground(Color.WHITE);
-		textAreaDiaMesSalida.setFont(new Font("Monospaced", Font.PLAIN, 32));
-		textAreaDiaMesSalida.setFocusable(false);
-		textAreaDiaMesSalida.setEditable(false);
-		textAreaDiaMesSalida.setBounds(1024, 228, 30, 47);
-		contentPane.add(textAreaDiaMesSalida);
-
-		textAreaMesAnoSalida = new JTextArea();
-		textAreaMesAnoSalida.setText("/");
-		textAreaMesAnoSalida.setOpaque(false);
-		textAreaMesAnoSalida.setForeground(Color.WHITE);
-		textAreaMesAnoSalida.setFont(new Font("Monospaced", Font.PLAIN, 32));
-		textAreaMesAnoSalida.setFocusable(false);
-		textAreaMesAnoSalida.setEditable(false);
-		textAreaMesAnoSalida.setBounds(1106, 228, 30, 47);
-		contentPane.add(textAreaMesAnoSalida);
-
-		listMesSalida = new JComboBox();
-		listMesSalida.addActionListener(new ListMesSalidaActionListener());
-		listMesSalida.setModel(new DefaultComboBoxModel(new String[] { "Mes" }));
-		listMesSalida.setBounds(881, 239, 136, 30);
-		contentPane.add(listMesSalida);
-
-		listDiaSalida = new JComboBox();
-		listDiaSalida.addActionListener(new ListDiaSalidaActionListener());
-		listDiaSalida.setModel(new DefaultComboBoxModel(new String[] { "Dia" }));
-		listDiaSalida.setBounds(1050, 239, 50, 30);
-		contentPane.add(listDiaSalida);
-
-		listAnoEntrada = new JComboBox();
-		listAnoEntrada.addActionListener(new ListAnoEntradaActionListener());
-		listAnoEntrada.setModel(new DefaultComboBoxModel(new String[] { "Año", "2020", "2021" }));
-		listAnoEntrada.setBounds(1131, 189, 80, 30);
-		contentPane.add(listAnoEntrada);
-
-		listDiaEntrada = new JComboBox();
-		listDiaEntrada.addActionListener(new ListDiaEntradaActionListener());
-		listDiaEntrada.setModel(new DefaultComboBoxModel(new String[] { "Dia" }));
-		listDiaEntrada.setBounds(1050, 189, 50, 30);
-		contentPane.add(listDiaEntrada);
-
-		textAreaMesAnoEntrada = new JTextArea();
-		textAreaMesAnoEntrada.setText("/");
-		textAreaMesAnoEntrada.setOpaque(false);
-		textAreaMesAnoEntrada.setForeground(Color.WHITE);
-		textAreaMesAnoEntrada.setFont(new Font("Monospaced", Font.PLAIN, 32));
-		textAreaMesAnoEntrada.setFocusable(false);
-		textAreaMesAnoEntrada.setEditable(false);
-		textAreaMesAnoEntrada.setBounds(1106, 178, 30, 47);
-		contentPane.add(textAreaMesAnoEntrada);
+		
+		dateChooserSalida = new JDateChooser();
+		dateChooserSalida.addPropertyChangeListener(new DateChooserSalidaPropertyChangeListener());
+		dateChooserSalida.setBounds(881, 240, 170, 20);
+		contentPane.add(dateChooserSalida);
+		
+		dateChooserEntrada = new JDateChooser();
+		dateChooserEntrada.addPropertyChangeListener(new DateChooserPropertyChangeListener());
+		dateChooserEntrada.setBounds(881, 189, 170, 20);
+		contentPane.add(dateChooserEntrada);
 
 		lblComprobacionHabitacion = new JLabel("");
 		lblComprobacionHabitacion.setFocusable(false);
@@ -1129,17 +818,7 @@ public class Reservar extends JFrame {
 		txtrFechaEntrada.setBounds(691, 189, 180, 30);
 		txtrFechaEntrada.setOpaque(false);
 		contentPane.add(txtrFechaEntrada);
-
-		textAreaDiaMesEntrada = new JTextArea();
-		textAreaDiaMesEntrada.setFocusable(false);
-		textAreaDiaMesEntrada.setForeground(Color.WHITE);
-		textAreaDiaMesEntrada.setEditable(false);
-		textAreaDiaMesEntrada.setFont(new Font("Monospaced", Font.PLAIN, 32));
-		textAreaDiaMesEntrada.setText("/");
-		textAreaDiaMesEntrada.setBounds(1024, 178, 30, 47);
-		textAreaDiaMesEntrada.setOpaque(false);
 		;
-		contentPane.add(textAreaDiaMesEntrada);
 
 		rdbtnHombre = new JRadioButton("Hombre");
 		buttonGroupSexo.add(rdbtnHombre);
@@ -1299,11 +978,11 @@ public class Reservar extends JFrame {
 		txtrNombre.setBounds(200, 189, 100, 30);
 		contentPane.add(txtrNombre);
 
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setFocusable(false);
-		lblNewLabel.setIcon(new ImageIcon(".\\recursos\\fondo.jpg"));
-		lblNewLabel.setBounds(0, 30, 1280, 720);
-		contentPane.add(lblNewLabel);
+		label = new JLabel("New label");
+		label.setFocusable(false);
+		label.setIcon(new ImageIcon(".\\recursos\\fondo.jpg"));
+		label.setBounds(0, 30, 1280, 720);
+		contentPane.add(label);
 
 		panel = new JPanel();
 		panel.addMouseMotionListener(new PanelMouseMotionListener());
@@ -1351,38 +1030,11 @@ public class Reservar extends JFrame {
 		rdbtnDui.setSelected(true);
 		rdbtnHa.setSelected(true);
 		rdbtnHombre.setSelected(true);
-
-		comprobarDisponibilidad();
+		
+		dateChooserEntrada.setMinSelectableDate(hoy);
+		dateChooserSalida.setMinSelectableDate(hoy);
+		//comprobarDisponibilidad();
 	}
 
-	public boolean comprobarMesTest(int ano, int mes, int dia) {
-		if (dia > 0 && dia < 32 && mes > 0 && mes < 13) {
-			switch (mes) {
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 12:
-				return true;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
-				if (dia < 31) {
-					return true;
-				}
-				break;
-			case 2:
-				if (dia < 29 || ((((ano % 4 == 0) && !(ano % 100 == 0)) || (ano % 400 == 0)) && dia < 30)) {
-					return true;
-				}
-				break;
-			}
-		}
-		return false;
-
-	}
 
 }

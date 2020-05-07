@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
-import InputOutput.IoDatos;
+import InputOutput.IoReservas;
 import estaticos.Usuario;
 
 import java.awt.Font;
@@ -65,6 +65,7 @@ public class Registro extends JFrame {
 	private JPasswordField pwdContrasena;
 	private boolean escondida;
 	private Point initialClick;
+	private IoReservas io;
 
 	/**
 	 * Launch the application.
@@ -260,10 +261,8 @@ public class Registro extends JFrame {
 			JOptionPane.showMessageDialog(null, "El nuevo usuario fue introducido");
 
 			Usuario usu = new Usuario(textFieldUser.getText(), contr, chckbxAdmin.isSelected());
-			vUsuarios.add(usu);
 
-			IoDatos.guardarUsusarios(vUsuarios);
-			textFieldUser.setText("Usuario");
+			io.registrarUsuario(usu);
 			pwdContrasena.setText("");
 			chckbxAdmin.setSelected(false);
 		}
@@ -443,7 +442,6 @@ public class Registro extends JFrame {
 		contentPane.add(lblFondo);
 		lblFondo.setFocusable(true);
 		lblFondo.requestFocus();
-		vUsuarios = IoDatos.leerDatos();
 		pwdContrasena.setVisible(true);
 		escondida = false;
 		mostrar = false;
