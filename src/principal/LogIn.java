@@ -42,6 +42,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import com.toedter.calendar.JCalendar;
 
 @SuppressWarnings({ "unused", "serial" })
 public class LogIn extends JFrame {
@@ -60,7 +61,7 @@ public class LogIn extends JFrame {
 	private JLabel btnSignup;
 	private boolean maximizado = false;
 	private Point initialClick;
-	private ArrayList<Usuario> usus = new ArrayList<Usuario>();
+
 	// private ArrayList<Usuario> vUsuarios;
 	/**
 	 * Launch the application.
