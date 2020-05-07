@@ -11,7 +11,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/34658/Downloads/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47.jar">
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/joda-time-2.10.6.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.47.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
