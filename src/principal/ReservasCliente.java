@@ -20,7 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
-import InputOutput.OperacionReserva;
+import InputOutput.IoReservas;
 import estaticos.Reserva;
 
 import java.awt.Font;
@@ -30,6 +30,8 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.swing.JTextArea;
@@ -49,10 +51,15 @@ public class ReservasCliente extends JFrame {
 	private JTextArea txtrReservasLista;
 	private JLabel btnNuevaReserva;
 	private JLabel btnSalir;
-	private OperacionReserva operacion = new OperacionReserva();
+	private IoReservas io;
 	private String usuarioReservas = "";
 	private Reserva reservaRealizada;
 	private Point initialClick;
+	private Date hoyArray = Calendar.getInstance().getTime();
+	private Calendar calHoyArray = Calendar.getInstance();
+	private int diaHoy;
+	private int mesHoy;
+	private int anoHoy;
 
 	/**
 	 * Launch the application.
@@ -80,23 +87,20 @@ public class ReservasCliente extends JFrame {
 	public ReservasCliente(String usuario) {
 		initApp();
 		usuarioReservas = usuario;
-		operacion.cargarReservas();
 		cargarReservas();
 	}
 
 	public ReservasCliente(String usuario, Reserva reserva) {
 		initApp();
 		usuarioReservas = usuario;
-		operacion.cargarReservas();
 		reservaRealizada = reserva;
-		operacion.anadirReserva(reservaRealizada);
-		operacion.guardarReservas();
+		io.registrarReserva(usuario, reservaRealizada.getNombreReserva(), reservaRealizada.getApellidosReserva(), reservaRealizada.getFechaEntrada(), reservaRealizada.getFechaSalida(), reservaRealizada.getTipoHabitacion(), reservaRealizada.getRegimen(), reservaRealizada.getSexo(), reservaRealizada.getPrecio(), reservaRealizada.getNumeroNoches());
 		cargarReservas();
 	}
 
 	public void cargarReservas() {
 		String textoReservas = "";
-		textoReservas = operacion.cargarArray(usuarioReservas);
+		textoReservas = io.cargarArrayPorUsu(usuarioReservas, diaHoy, mesHoy, anoHoy);
 		txtrReservasLista.setText(textoReservas);
 	}
 
@@ -214,7 +218,7 @@ public class ReservasCliente extends JFrame {
             setLocation(X, Y);
 		}
 	}
-	/** Todas las variables y los apartados para la ejecución de la app (VIVA NETBEANS) */
+	/** Todas las variables y los apartados para la ejecuciï¿½n de la app (VIVA NETBEANS) */
 	private void initApp() {
 		setResizable(false);
 		setUndecorated(true);
@@ -316,5 +320,9 @@ public class ReservasCliente extends JFrame {
 		lblMaximizar.setBounds(70, 9, 14, 14);
 		panel.add(lblMaximizar);
 
+		calHoyArray.setTime(hoyArray);
+		mesHoy = calHoyArray.get(Calendar.MONTH);
+		diaHoy = calHoyArray.get(Calendar.DAY_OF_MONTH);
+		anoHoy = calHoyArray.get(Calendar.YEAR);
 	}
 }

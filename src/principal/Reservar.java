@@ -161,6 +161,7 @@ public class Reservar extends JFrame {
 	 * Create the frame.
 	 */
 	public Reservar() {
+		
 		initApp();
 		
 	}

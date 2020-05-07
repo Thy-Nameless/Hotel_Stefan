@@ -14,7 +14,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JOptionPane;
 import javax.swing.border.SoftBevelBorder;
 
-import InputOutput.OperacionHabitacion;
 import estaticos.Reserva;
 
 import java.awt.Font;
@@ -42,7 +41,6 @@ public class Pago extends JFrame {
 	private JLabel lblMinimizar;
 	private JLabel lblMaximizar;
         private boolean maximizado = false;
-        private OperacionHabitacion operaciones = new OperacionHabitacion();
         private JTextArea textNom;
         private JTextArea textApe;
         private JTextArea textDireccion;
@@ -135,7 +133,7 @@ public class Pago extends JFrame {
 	}
 	private class BtnNewButtonMouseListener extends MouseAdapter {
 		@Override
-		/** Comprobaciones generales de longitud de código de tarjeta, cvc y su validad */
+		/** Comprobaciones generales de longitud de cï¿½digo de tarjeta, cvc y su validad */
 		public void mouseClicked(MouseEvent e) {
 			Pattern pattern = Pattern.compile("[0-9]{4}\\s[0-9]{4}\\s[0-9]{4}\\s[0-9]{4}");
 			Matcher matcher = pattern.matcher(textFieldNum.getText());
@@ -143,15 +141,15 @@ public class Pago extends JFrame {
 				pattern = Pattern.compile("[0-9]{3}");
 				matcher = pattern.matcher(textFieldCVV.getText());
 				if (matcher.matches()) {
-					JOptionPane.showMessageDialog(rootPane, "Pago realizado con éxito");
+					JOptionPane.showMessageDialog(rootPane, "Pago realizado con ï¿½xito");
 					new ReservasCliente(usuarioReserva,reservaRealizada).setVisible(true);
 					dispose();
 				} else {
-					JOptionPane.showMessageDialog(rootPane, "El código CVC debe estar formado por 3 dígitos.");
+					JOptionPane.showMessageDialog(rootPane, "El cï¿½digo CVC debe estar formado por 3 dï¿½gitos.");
 					textFieldCVV.setText("");
 				}
 			} else {
-				JOptionPane.showMessageDialog(rootPane, "El número de tarjeta solo puede contener dígitos en bloques de 4 debidamente espaciados (0000 0000 0000 0000)");
+				JOptionPane.showMessageDialog(rootPane, "El nï¿½mero de tarjeta solo puede contener dï¿½gitos en bloques de 4 debidamente espaciados (0000 0000 0000 0000)");
 				textFieldNum.setText("");
 			}
 		}
@@ -166,7 +164,7 @@ public class Pago extends JFrame {
 	}
 	private class TextFieldNumKeyListener extends KeyAdapter {
 		@Override
-		/** Este método permite la comprobación de sí el carácter ingresado es un número, excede el rango de la tarjeta, o es una letra o caracter especial */
+		/** Este mï¿½todo permite la comprobaciï¿½n de sï¿½ el carï¿½cter ingresado es un nï¿½mero, excede el rango de la tarjeta, o es una letra o caracter especial */
 		public void keyReleased(KeyEvent e) {
 			int teclaPulsada = e.getKeyCode();
 			int longt = 0;
@@ -218,7 +216,7 @@ public class Pago extends JFrame {
 	}
 	private class TextFieldCVVKeyListener extends KeyAdapter {
 		@Override
-		/** Este método permite la comprobación de sí el carácter ingresado es un número, excede el rango de la tarjeta, o es una letra o caracter especial */
+		/** Este mï¿½todo permite la comprobaciï¿½n de sï¿½ el carï¿½cter ingresado es un nï¿½mero, excede el rango de la tarjeta, o es una letra o caracter especial */
 		public void keyReleased(KeyEvent e) {
 			int teclaPulsada = e.getKeyCode();
 			int longt = 0;
@@ -269,7 +267,7 @@ public class Pago extends JFrame {
             setLocation(X, Y);
 		}
 	}
-	/** Realización de la comprobación del código CVC */
+	/** Realizaciï¿½n de la comprobaciï¿½n del cï¿½digo CVC */
 	public boolean testComprobacionNumeroTarjetaYcvc(String numeroTarjeta, String cvc) {
 		Pattern pattern = Pattern.compile("[0-9]{4}\\s[0-9]{4}\\s[0-9]{4}\\s[0-9]{4}");
 		Matcher matcher = pattern.matcher(numeroTarjeta);
@@ -286,9 +284,8 @@ public class Pago extends JFrame {
 		}
 	}
 	
-	/** Inicialización de todos los apartados del programa */
+	/** Inicializaciï¿½n de todos los apartados del programa */
         private void initApp() {
-            operaciones.cargarHabitaciones();
             setResizable(false);
     		setUndecorated(true);
     		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
