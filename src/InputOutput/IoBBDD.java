@@ -2,6 +2,7 @@ package InputOutput;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class IoBBDD {
@@ -28,5 +29,30 @@ public class IoBBDD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void registrarLogIn(String usuario, String password, String time, boolean admin) {
+		conectar();
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("INSERT INTO seguimiento_logIn VALUES (?,?,?,?);");
+			ps.setString(1, usuario);
+			ps.setString(2, password);
+			ps.setString(3, time);
+			ps.setBoolean(4, admin);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		desconectar();
 	}
 }
