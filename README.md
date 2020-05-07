@@ -23,6 +23,9 @@
 - Українська
 - Pусский
 - Čeština
+- Indonesia
+- Deutsche
+- 한국어
 
 ---
 
@@ -233,7 +236,7 @@ here
 
 ---
 
-###### [Pokyny pro přispívání pro tento projekt](/CONTRIBUTING.md)
+###### [Pedoman kontribusi untuk proyek ini](/CONTRIBUTING.md)
 
 ## 5*hvezdickovy hotel, ktery se nachazi ve meste Alcañiz, zalozeny hlavne na mnozstvi turistu behem Moto GP. Aragonu.
 
@@ -248,3 +251,58 @@ here
 - Mohou Udelat reservaci na zaklade aplikace GitHub?
 
 - Ne, aplikace GitHub slouzi pouze na pripominky nasich klientu o novych aplikacich ktere se objevi na opatreni k novym pozadavkum.
+
+---
+
+###### [Pokyny pro přispívání pro tento projekt](/CONTRIBUTING.md)
+
+## Hotel bintang 5 yang berlokasi di kota Alcañiz berawal dari pariwisata diseputar Aragón MotoGP. 
+
+-Apa fungsi aplikasi ini?
+
+-Aplikasi ini diciptakan untuk membantu kemudahan reservasi agar para pengguna VIP dapat lebih mudah menemukan tempat di hotel yang padat pengunjung ini, aplikasi ini tidak tersedia untuk umum. 
+
+-Mengapa memilih aplikasi ini?
+
+-Untuk memprioritaskan beberapa reservasi yang kami anggap lebih penting daripada yang lain dan memastikan setiap VIP memiliki kamar tersendiri yang memfasilitasi kebutuhan individual. 
+
+-Apakah mungkin untuk mereservasi menggunakan versi Github dari aplikasi ini?
+
+-Tentu Tidak! Ini adalah model aplikasi hanya untuk percobaan yang terhubung ke basis data yang tidak relevan, satu-satunya cara untuk mengakses aplikasi asli adalah dengan menghubungi kami lewat telefon atau email yang tersedia di website kami.
+
+---
+
+###### [Beitragsrichtlinien für dieses Projekt](/CONTRIBUTING.md)
+
+## Ein 5 Sterne Hotel in der Stadt von Alcañiz, gegründet dank dem Tourismus der MotoGP.
+
+- Wofür ist diese App?
+
+- Diese App wurde erstellt, um beim Verwalten von Reservierungen zu helfen. Da diese App nicht öffentlich zugänglich ist, ist es unseren VIP-Kunden möglich, einfacher an einen Platz in unserem gefragten Hotel zu kommen.
+
+- Warum diese App?
+
+- Damit unsere VIP-Kunden an erster Stelle stehen. Auf diesem Weg haben wir die Möglichkeit Reservierungen zu priorisieren und sicherzustellen, dass jeder VIP ein Zimmer bekommt und sich auf das eigentliche Geschehen konzentrieren kann.
+
+- Kann ich mit der Github-Version dieser App Reservierungen tätigen?
+
+- Natürlich nicht! Hierbei handelt es sich nur um eine Dummy-App, welche für Tests genutzt wird. Sie verfügt über keine Anbindung an unser echtes System. Um die funktionale Version dieser App zu erhalten kontaktieren Sie uns bitte über die Telefonnummer oder die E-Mailadresse, welche Sie auf unserer Website finden.
+
+---
+
+###### [이 프로젝트의 기여 가이드 라인](/CONTRIBUTING.md)
+
+## Alcañiz 시에 위치한 5성급 호텔은  Aragón MotoGP 주변의 관광시설 덕분에 생겨났다.
+
+- 이 앱은 무엇을 위한 것입니까?
+
+이 앱은 예약의 관리를 위해 만들어 졌다, 그래서 우리의 VIP 이용자들이 이 앱을통해서  일반인들이 사용할 수 없는 고품격 호텔의 위치를 찾기가 쉬워졌다. 
+
+- 왜 이 앱 입니까?
+
+다른 예약보다 더 중요하다고 여겨질 수 있는 일부 예약을 우선시하고 모든 VIP가 그들을 위해 배정된 객실을 갖게하고 그들이 가장 집중해야 하는 부분에 집중 수 있도록하기위해서  이다.
+
+- 앱의 github 버전을 사용하여 예약 할 수 있습니까?
+
+전화나 
+그럴수 없습니다. 이 앱은 테스트 전용으로 사용되는 앱으로 전혀 관련이 없는 데이터베이스와 연결되어 있으며, 실제 앱에 접속 할 수있는  유일한 방법은 우리 웹사이트에 있는 전화 또는 이메일로 우리에게 연락하는   것입니다.
