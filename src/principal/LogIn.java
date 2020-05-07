@@ -25,8 +25,6 @@ import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
 import InputOutput.IoBBDD;
-import InputOutput.IoDatos;
-import InputOutput.OperacionHabitacion;
 import estaticos.Usuario;
 
 import java.awt.Font;
