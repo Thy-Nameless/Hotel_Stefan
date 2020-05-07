@@ -324,5 +324,7 @@ public class ReservasCliente extends JFrame {
 		mesHoy = calHoyArray.get(Calendar.MONTH);
 		diaHoy = calHoyArray.get(Calendar.DAY_OF_MONTH);
 		anoHoy = calHoyArray.get(Calendar.YEAR);
+		
+		io = new IoReservas();
 	}
 }

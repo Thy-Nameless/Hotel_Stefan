@@ -664,6 +664,8 @@ public class Hotel extends JFrame {
 		mesHoy = calHoyArray.get(Calendar.MONTH);
 		diaHoy = calHoyArray.get(Calendar.DAY_OF_MONTH);
 		anoHoy = calHoyArray.get(Calendar.YEAR);
+		
+		io = new IoReservas();
 	}
 
 	public boolean testFechaEntradaSalida(int aSalida, int mSalida, int dSalida, int aEntrada, int mEntrada,

@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import estaticos.Reserva;
 import estaticos.Usuario;
 
@@ -121,13 +125,13 @@ public class IoReservas {
 		return usus;
     }
 	
-	public void registrarUsuario(Usuario usu) {
+	public void registrarUsuario(Usuario usu) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
         conectar();
 
         PreparedStatement ps = null;
 
         try {
-            ps = con.prepareStatement("INSERT INTO reserva VALUES (?,?,?);");
+            ps = con.prepareStatement("INSERT INTO usuario VALUES (?,?,?);");
             ps.setString(1, usu.getNombreUsuario());
             ps.setString(2, usu.getPassword());
             if (usu.isEsAdmin()) {
@@ -136,9 +140,10 @@ public class IoReservas {
             	ps.setInt(3, 0);
             }
             ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "El nuevo usuario fue introducido");
             ps.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+        	JOptionPane.showMessageDialog(null, "El usuario indicado ya fue introducido anteriormente");
         } finally {
             try {
                 ps.close();
@@ -172,11 +177,12 @@ public class IoReservas {
 				tipoHabitacion = rs.getString("tipoHabitacion");
 				precio = rs.getInt("precio");
 				numeroNoches = rs.getInt("numeroNoches");
-				String[] parts = fechaEntrada.split("/");
-				if (ano > Integer.parseInt(parts[2]) || mes > Integer.parseInt(parts[1]) || dia >= Integer.parseInt(parts[0])) {
+//				String[] parts = fechaEntrada.split("/");
+//				if (ano > Integer.parseInt(parts[2]) || mes > Integer.parseInt(parts[1]) || dia >= Integer.parseInt(parts[0])) {
 				Reserva res = new Reserva(usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches);
+				System.out.println(res.toString());
 				reservas.add(res);
-				}
+//				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -206,9 +212,9 @@ public class IoReservas {
             ps.setString(3, apellido);
             ps.setString(4, fechaEntrada);
             ps.setString(5, fechaSalida);
-            ps.setString(6, tipoHabitacion);
-            ps.setString(7, regimen);
-            ps.setString(8, sexo);
+            ps.setString(8, tipoHabitacion);
+            ps.setString(6, regimen);
+            ps.setString(7, sexo);
             ps.setInt(9, (int)importe);
             ps.setInt(10, numNoches);
             ps.executeUpdate();
@@ -235,7 +241,7 @@ public class IoReservas {
 		
 		try {
 			pt = con.prepareStatement("SELECT * FROM reserva WHERE usuario LIKE ?");
-			pt.setString(0, usu);
+			pt.setString(1, usu);
 			rs = pt.executeQuery();
 			while (rs.next()){
 				usuario = rs.getString("usuario");

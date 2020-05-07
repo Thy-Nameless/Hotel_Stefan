@@ -67,6 +67,7 @@ public class LogIn extends JFrame {
 	private IoReservas io;
 	private ArrayList<Usuario> usus = new ArrayList<Usuario>();
 	private IoBBDD bbdd;
+
 	// private ArrayList<Usuario> vUsuarios;
 	/**
 	 * Launch the application.
@@ -171,10 +172,12 @@ public class LogIn extends JFrame {
 			reg.setVisible(true);
 			dispose();
 		}
+
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			btnSignup.setIcon(new ImageIcon(".\\recursos\\register.png"));
 		}
+
 		@Override
 		public void mouseExited(MouseEvent e) {
 			btnSignup.setIcon(new ImageIcon(".\\recursos\\registerBW.png"));
@@ -201,7 +204,7 @@ public class LogIn extends JFrame {
 
 		}
 	}
-	
+
 	private class BtnEntrarMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -211,10 +214,13 @@ public class LogIn extends JFrame {
 				JOptionPane.showMessageDialog(null, "Valores no introducidos");
 			}
 
+			boolean muestraMensaje = true;
+
 			ArrayList<Usuario> vUsuarios = io.devolverUsuarios();
 			String contrasena = String.valueOf(passwordFieldPass.getPassword());
 			for (Usuario user : vUsuarios) {
 				if (user.getNombreUsuario().equals(textFieldUser.getText()) && user.getPassword().equals(contrasena)) {
+					muestraMensaje = false;
 					if (user.isEsAdmin()) {
 						Hotel hotel = new Hotel();
 						hotel.setVisible(true);
@@ -229,42 +235,49 @@ public class LogIn extends JFrame {
 						break;
 					}
 				}
-			} 
-			JOptionPane.showMessageDialog(null,"Los datos del usuario introducidos no coinciden o este no esta registrado");
+			}
+			if (muestraMensaje) {
+				JOptionPane.showMessageDialog(contentPane,
+						"Los datos del usuario introducidos no coinciden o éste no está registrado");
+			}
 		}
+
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			btnEntrar.setIcon(new ImageIcon(".\\recursos\\enter.png"));
 		}
+
 		@Override
 		public void mouseExited(MouseEvent e) {
 			btnEntrar.setIcon(new ImageIcon(".\\recursos\\enterBW.png"));
 		}
 	}
+
 	private class PanelMouseListener extends MouseAdapter {
 		@Override
 		public void mousePressed(MouseEvent e) {
-	            initialClick = e.getPoint();
-	            getComponentAt(initialClick);
-	 	}
+			initialClick = e.getPoint();
+			getComponentAt(initialClick);
+		}
 	}
+
 	private class PanelMouseMotionListener extends MouseMotionAdapter {
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			int thisX = getLocation().x;
-            int thisY = getLocation().y;
+			int thisY = getLocation().y;
 
-            // Determine how much the mouse moved since the initial click
-            int xMoved = e.getX() - initialClick.x;
-            int yMoved = e.getY() - initialClick.y;
+			// Determine how much the mouse moved since the initial click
+			int xMoved = e.getX() - initialClick.x;
+			int yMoved = e.getY() - initialClick.y;
 
-            // Move window to this position
-            int X = thisX + xMoved;
-            int Y = thisY + yMoved;
-            setLocation(X, Y);
+			// Move window to this position
+			int X = thisX + xMoved;
+			int Y = thisY + yMoved;
+			setLocation(X, Y);
 		}
 	}
-	
+
 	public void initApp() {
 		setResizable(false);
 		setUndecorated(true);
@@ -373,7 +386,8 @@ public class LogIn extends JFrame {
 		lblFondo.setFocusable(true);
 		lblFondo.requestFocus();
 		// vUsuarios = IoDatos.leerDatos();
-		
+
 		bbdd = new IoBBDD();
+		io = new IoReservas();
 	}
 }

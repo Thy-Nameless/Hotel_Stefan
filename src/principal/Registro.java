@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import InputOutput.IoReservas;
 import estaticos.Usuario;
 
@@ -185,28 +187,27 @@ public class Registro extends JFrame {
 		}
 	}
 
-	
-
-
 	private void esconderContrasena() {
 		char[] contrChar = pwdContrasena.getPassword();
 		String contr = "";
-		for (int i=0;i<contrChar.length;i++) {
+		for (int i = 0; i < contrChar.length; i++) {
 			contr += contrChar[i];
 		}
 		if (!contr.equals("Contraseña")) {
 			pwdContrasena.setEchoChar('*');
 		}
 	}
+
 	private void ensenarContrasena() {
-		pwdContrasena.setEchoChar((char)0);
+		pwdContrasena.setEchoChar((char) 0);
 	}
+
 	private class PwdContrasenaFocusListener extends FocusAdapter {
 		@Override
 		public void focusGained(FocusEvent e) {
 			char[] contrChar = pwdContrasena.getPassword();
 			String contr = "";
-			for (int i=0;i<contrChar.length;i++) {
+			for (int i = 0; i < contrChar.length; i++) {
 				contr += contrChar[i];
 			}
 			if (contr.equals("Contraseña")) {
@@ -216,13 +217,14 @@ public class Registro extends JFrame {
 					escondida = true;
 				}
 			}
-			
+
 		}
+
 		@Override
 		public void focusLost(FocusEvent e) {
 			char[] contrChar = pwdContrasena.getPassword();
 			String contr = "";
-			for (int i=0;i<contrChar.length;i++) {
+			for (int i = 0; i < contrChar.length; i++) {
 				contr += contrChar[i];
 			}
 			if (contr.equals("")) {
@@ -235,11 +237,8 @@ public class Registro extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			char[] contrChar = pwdContrasena.getPassword();
-			String contr = "";
-			for (int i=0;i<contrChar.length;i++) {
-				contr += contrChar[i];
-			}
-			// ERROR CONTRASEĹ�A
+			String contr = String.valueOf(contrChar);
+
 			Pattern pPasswd = Pattern.compile("^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,16}$");
 			Matcher mPasswd = pPasswd.matcher(contr);
 
@@ -247,34 +246,34 @@ public class Registro extends JFrame {
 				JOptionPane.showMessageDialog(null, "La contraseña no cumple los requisitos");
 				return;
 			}
-			// FIN CORRECCIĂ“N ERROR CONTRASEĹ�A
-			for (Usuario usuario : vUsuarios) {
-				if (usuario.getNombreUsuario().equals(textFieldUser.getText())) {
-					JOptionPane.showMessageDialog(null, "El usuario indicado ya fue introducido anteriormente");
-					textFieldUser.setText("Usuario");
-					pwdContrasena.setText("");
-					chckbxAdmin.setSelected(false);
-					return;
-				}
-			}
 
-			JOptionPane.showMessageDialog(null, "El nuevo usuario fue introducido");
+			
 
 			Usuario usu = new Usuario(textFieldUser.getText(), contr, chckbxAdmin.isSelected());
+			System.out.println(usu.toString());
 
-			io.registrarUsuario(usu);
-			pwdContrasena.setText("");
-			chckbxAdmin.setSelected(false);
+			try {
+				io.registrarUsuario(usu);
+			} catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e2) {
+								
+			} finally {
+				textFieldUser.setText("");
+				pwdContrasena.setText("");
+				chckbxAdmin.setSelected(false);
+			}
 		}
+
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			btnAnadirUser.setIcon(new ImageIcon(".\\recursos\\addUser.png"));
 		}
+
 		@Override
 		public void mouseExited(MouseEvent e) {
 			btnAnadirUser.setIcon(new ImageIcon(".\\recursos\\addUserBW.png"));
 		}
 	}
+
 	private class BtnVerContrasenaMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -291,29 +290,32 @@ public class Registro extends JFrame {
 			}
 		}
 	}
+
 	private class PanelMouseListener extends MouseAdapter {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			initialClick = e.getPoint();
-            getComponentAt(initialClick);
+			getComponentAt(initialClick);
 		}
 	}
+
 	private class PanelMouseMotionListener extends MouseMotionAdapter {
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			int thisX = getLocation().x;
-            int thisY = getLocation().y;
+			int thisY = getLocation().y;
 
-            // Determine how much the mouse moved since the initial click
-            int xMoved = e.getX() - initialClick.x;
-            int yMoved = e.getY() - initialClick.y;
+			// Determine how much the mouse moved since the initial click
+			int xMoved = e.getX() - initialClick.x;
+			int yMoved = e.getY() - initialClick.y;
 
-            // Move window to this position
-            int X = thisX + xMoved;
-            int Y = thisY + yMoved;
-            setLocation(X, Y);
+			// Move window to this position
+			int X = thisX + xMoved;
+			int Y = thisY + yMoved;
+			setLocation(X, Y);
 		}
 	}
+
 	public void initApp() {
 		setResizable(false);
 		setUndecorated(true);
@@ -399,8 +401,7 @@ public class Registro extends JFrame {
 		btnSignIn = new JLabel("");
 		btnSignIn.setToolTipText("Volver a Login");
 		btnSignIn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSignIn.setIcon(
-				new ImageIcon(".\\recursos\\goBackBW.png"));
+		btnSignIn.setIcon(new ImageIcon(".\\recursos\\goBackBW.png"));
 		btnSignIn.setHorizontalAlignment(SwingConstants.CENTER);
 		btnSignIn.setFocusable(false);
 		btnSignIn.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -430,7 +431,7 @@ public class Registro extends JFrame {
 		pwdContrasena = new JPasswordField();
 		pwdContrasena.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		pwdContrasena.addFocusListener(new PwdContrasenaFocusListener());
-		pwdContrasena.setEchoChar((char)0);
+		pwdContrasena.setEchoChar((char) 0);
 		pwdContrasena.setText("Contraseña");
 		pwdContrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		pwdContrasena.setBounds(457, 275, 368, 40);
@@ -445,5 +446,7 @@ public class Registro extends JFrame {
 		pwdContrasena.setVisible(true);
 		escondida = false;
 		mostrar = false;
+		io = new IoReservas();
+		vUsuarios = new ArrayList<Usuario>();
 	}
 }
