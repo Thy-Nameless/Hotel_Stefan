@@ -253,9 +253,8 @@ public class IoReservas {
     }
 	
     public ArrayList<Reserva> devolverReservas() {
-    	System.out.println(mesHoy);
     	ArrayList<Reserva> reservas = new ArrayList<Reserva>();
-    	String usuario;String nombreReserva; String apellidosReserva; String fechaEntrada;
+    	int codReserva;String usuario;String nombreReserva; String apellidosReserva; String fechaEntrada;
 		String fechaSalida; String tipoHabitacion; String regimen; String sexo; double precio; int numeroNoches;
 		conectar();
 		PreparedStatement pt = null;
@@ -266,6 +265,7 @@ public class IoReservas {
 			
 			rs = pt.executeQuery();
 			if (rs.next()){
+				codReserva = rs.getInt("codReserva");
 				usuario = rs.getString("usuario");
 				nombreReserva = rs.getString("nombreReserva");
 				apellidosReserva = rs.getString("apellidoReserva");
@@ -277,11 +277,10 @@ public class IoReservas {
 				precio = rs.getInt("precio");
 				numeroNoches = rs.getInt("numeroNoches");
 				String[] parts = fechaEntrada.split("/");
-				if (anoHoy > Integer.parseInt(parts[2]) || mesHoy > Integer.parseInt(parts[1]) || diaHoy >= Integer.parseInt(parts[0])) {
-				Reserva res = new Reserva(usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches);
-				System.out.println(res.toString());
+				//if (anoHoy > Integer.parseInt(parts[2]) || mesHoy > Integer.parseInt(parts[1]) || diaHoy >= Integer.parseInt(parts[0])) {
+				Reserva res = new Reserva(codReserva,usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches);
 				reservas.add(res);
-				}
+				//}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -330,7 +329,50 @@ public class IoReservas {
         desconectar();
     }
     
-    public String cargarArrayPorUsu(String usu, int dia, int mes, int ano) {
+    public void asignarHabitacion(int habitacion, int codReserva) {
+    	conectar();
+    	PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement("UPDATE reserva SET numHabitacion = ? WHERE codReserva = ?");
+            ps.setInt(1, habitacion);
+            ps.setInt(2, codReserva);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    	desconectar();
+    }
+    
+    public void cancelarReserva(int codReserva) {
+    	conectar();
+    	PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement("DELETE FROM reserva WHERE codReserva = ?");
+            ps.setInt(1, codReserva);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    	desconectar();
+    }
+    
+   /*+ public String cargarArrayPorUsu(String usu, int dia, int mes, int ano) {
     	conectar();
     	String reservas = "";
     	String usuario;String nombreReserva; String apellidosReserva; String fechaEntrada;
@@ -373,6 +415,44 @@ public class IoReservas {
 		}
 		desconectar();
 		return reservas;
-    }
+    }*/
+    
+    public int comprobarHab(int diaEntr, int mesEntr, int anoEntr, int diaSalid, int mesSalid, int anoSalid, String regimen) {
+		conectar();
+		int cont = 0;
+		String fechaEntrada;
+		String fechaSalida;
+		PreparedStatement pt = null;
+		ResultSet rs = null;
+		try {
+			pt = con.prepareStatement("SELECT * FROM reserva WHERE regimen = " + regimen);
+			
+			rs = pt.executeQuery();
+			while (rs.next()){
+				fechaSalida = rs.getString("fechaSalida");
+				fechaEntrada = rs.getString("fechaEntrada");
+				String[] fechEntrada = fechaEntrada.split("/");
+				String[] fechSalida = fechaSalida.split("/");
+				if (((anoEntr > Integer.parseInt(fechEntrada[2]) || mesEntr > Integer.parseInt(fechEntrada[1]) || diaEntr >= Integer.parseInt(fechEntrada[0])) && (anoEntr < Integer.parseInt(fechSalida[2]) || mesEntr < Integer.parseInt(fechSalida[1]) || diaEntr < Integer.parseInt(fechSalida[0]))) || ((anoSalid > Integer.parseInt(fechEntrada[2]) || mesSalid > Integer.parseInt(fechEntrada[1]) || diaSalid > Integer.parseInt(fechEntrada[1])) && (anoEntr < Integer.parseInt(fechEntrada[2]) || mesEntr < Integer.parseInt(fechEntrada[1]) || diaEntr < Integer.parseInt(fechEntrada[0])))){
+					cont++;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		desconectar();
+		return cont;
+	}
+    
+    
     
 }

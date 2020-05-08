@@ -47,6 +47,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseMotionAdapter;
 import com.toedter.calendar.JMonthChooser;
+
+import InputOutput.IoReservas;
+
 import com.toedter.calendar.JDateChooser;
 import java.beans.PropertyChangeListener;
 import java.util.Calendar;
@@ -104,7 +107,8 @@ public class Reservar extends JFrame {
 	private int diaSalida;
 	private int anoEntrada;
 	private int anoSalida;
-	// boolean entrada;
+	private IoReservas io;
+	 boolean disponible;
 	@SuppressWarnings({})
 	/**
 	 * private final DefaultComboBoxModel dia = new DefaultComboBoxModel(new
@@ -207,8 +211,10 @@ public class Reservar extends JFrame {
 	}
 
 	private void comprobarBotonEnviar() {
+		comprobarDisponibilidadHabitacion();
 		if (!textNombre.getText().equals("Nombre") && !textApellido.getText().equals("Apellido")
-				&& !textFieldImporte.getText().equals("0")) {
+				&& !textFieldImporte.getText().equals("0") && disponible) {
+			
 			btnPagar.setEnabled(true);
 		} else {
 			btnPagar.setEnabled(false);
@@ -662,6 +668,29 @@ public class Reservar extends JFrame {
 				comprobarNumNoches();
 			} catch (Exception e) {
 			}
+		}
+	}
+	
+	private void comprobarDisponibilidadHabitacion() {
+		String seleccionHabitacion = "";
+		if (rdbtnDui.isSelected()) {
+			seleccionHabitacion = "DUI";
+		}
+		if (rdbtnDb.isSelected()) {
+			seleccionHabitacion = "DB";
+		}
+		if (rdbtnTri.isSelected()) {
+			seleccionHabitacion = "TRI";
+		}
+		if (rdbtnSuite.isSelected()) {
+			seleccionHabitacion = "SUITE";
+		}
+		
+		int num = io.comprobarHab(diaEntrada, mesEntrada, anoEntrada, diaSalida, mesSalida, anoSalida, seleccionHabitacion);
+		if (num<20) {
+			disponible = true;
+		} else {
+			disponible = false;
 		}
 	}
 

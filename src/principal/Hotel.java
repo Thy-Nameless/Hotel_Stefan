@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -41,6 +42,7 @@ import InputOutput.IoReservas;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JList;
 
 @SuppressWarnings({ "unused", "serial", "rawtypes","unchecked" })
 public class Hotel extends JFrame {
@@ -66,7 +68,6 @@ public class Hotel extends JFrame {
 	private JTextArea txtrFechaEntrada;
 	private JTextArea txtrFechaSalida;
 	private IoReservas io;
-	private JTextArea txtAreaReservas;
 	private boolean fecha = false;
 	private boolean fechaEntr = false;
 	private boolean fechaSalid = false;
@@ -88,6 +89,8 @@ public class Hotel extends JFrame {
 	private int diaHoy;
 	private int mesHoy;
 	private int anoHoy;
+	private JList listAreaReservas;
+	private DefaultListModel model = new DefaultListModel();
 	/**
 	 * Launch the application.
 	 */
@@ -110,13 +113,18 @@ public class Hotel extends JFrame {
 	public Hotel() {
 		io = new IoReservas();
 		initApp();
-		
-		//listaReservas = operacion.devolverReservas(diaHoy, mesHoy, anoHoy);
-		cargarReservas(io.devolverArrayReservasString());
+		listaReservas = io.devolverReservas();
+		cargarReservas();
+		//cargarReservas(io.devolverArrayReservasString());
 	}
 
-	public void cargarReservas(String reservas) {
-		txtAreaReservas.setText(reservas);
+	public void cargarReservas() {
+		model = new DefaultListModel();
+		Iterator it = listaReservas.iterator();
+		while (it.hasNext()) {
+			model.addElement(it.next());
+		}
+		listAreaReservas.setModel(model);
 	}
 
 	private class LblCerrarMouseListener extends MouseAdapter {
@@ -183,7 +191,7 @@ public class Hotel extends JFrame {
 			txtCodigo.setText("Codigo");
 			txtNombre.setText("Nombre");
 			txtApellidos.setText("Apellidos");
-			txtAreaReservas.setText("");
+			listAreaReservas.setModel(new DefaultListModel());;
 		}
 
 		@Override
@@ -200,7 +208,11 @@ public class Hotel extends JFrame {
 	private class BtnAsignarMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			JOptionPane.showMessageDialog(null, "Habitacion asignada");
+			if (btnAsignar.isEnabled()) {
+				Reserva res = (Reserva) listAreaReservas.getSelectedValue();
+				AsignarHabitacion ah = new AsignarHabitacion(res);
+				ah.setVisible(true);
+			}
 		}
 
 		@Override
@@ -305,11 +317,7 @@ public class Hotel extends JFrame {
 				dumpArray = new ArrayList<Reserva>();
 			}
 		}
-		Iterator it = listaReservas.iterator();
-		while (it.hasNext()) {
-			contenido += it.next() + "\n";
-		}
-		txtAreaReservas.setText(contenido);
+		cargarReservas();
 	}
 
 	/** Metodo para comprobar la fecha si los dos campos no estan rellenos */
@@ -469,6 +477,12 @@ public class Hotel extends JFrame {
 			}
 		}
 	}
+	private class ListAreaReservasMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			btnAsignar.setEnabled(true);
+		}
+	}
 
 	/** MĂ©todo para iniciar todas las variables de la app */
 
@@ -483,6 +497,7 @@ public class Hotel extends JFrame {
 		contentPane.setLayout(null);
 
 		btnAsignar = new JLabel("");
+		btnAsignar.setEnabled(false);
 		btnAsignar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAsignar.setIcon(new ImageIcon(".\\recursos\\asignRoomBW.png"));
 		btnAsignar.setToolTipText("Asignar habitaci\u00F3n");
@@ -502,6 +517,11 @@ public class Hotel extends JFrame {
 		
 		dateChooserEntrada = new JDateChooser();
 		dateChooserEntrada.addPropertyChangeListener(new DateChooserEntradaPropertyChangeListener());
+		
+		listAreaReservas = new JList();
+		listAreaReservas.addMouseListener(new ListAreaReservasMouseListener());
+		listAreaReservas.setBounds(130, 379, 1000, 221);
+		contentPane.add(listAreaReservas);
 		dateChooserEntrada.setBounds(800, 109, 170, 20);
 		contentPane.add(dateChooserEntrada);
 		
@@ -509,10 +529,6 @@ public class Hotel extends JFrame {
 		dateChooserSalida.addPropertyChangeListener(new DateChooserSalidaPropertyChangeListener());
 		dateChooserSalida.setBounds(800, 171, 170, 20);
 		contentPane.add(dateChooserSalida);
-
-		txtAreaReservas = new JTextArea();
-		txtAreaReservas.setBounds(130, 380, 1000, 220);
-		contentPane.add(txtAreaReservas);
 
 		txtrFechaSalida = new JTextArea();
 		txtrFechaSalida.setText("Fecha Salida:");

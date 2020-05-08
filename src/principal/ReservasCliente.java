@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Rectangle;
@@ -19,6 +20,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
+
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import InputOutput.IoReservas;
 import estaticos.Reserva;
@@ -36,6 +40,10 @@ import java.util.Iterator;
 
 import javax.swing.JTextArea;
 import java.awt.event.MouseMotionAdapter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JList;
 @SuppressWarnings({ "unused", "serial" })
 public class ReservasCliente extends JFrame {
 
@@ -48,10 +56,10 @@ public class ReservasCliente extends JFrame {
 	private JLabel lblMaximizar;
 	private boolean maximizado = false;
 	private JTextArea txtrReservas;
-	private JTextArea txtrReservasLista;
 	private JLabel btnNuevaReserva;
 	private JLabel btnSalir;
 	private IoReservas io;
+	private ArrayList<Reserva> listaReservas;
 	private String usuarioReservas = "";
 	private Reserva reservaRealizada;
 	private Point initialClick;
@@ -60,6 +68,9 @@ public class ReservasCliente extends JFrame {
 	private int diaHoy;
 	private int mesHoy;
 	private int anoHoy;
+	private JList listAreaReservas;
+	private DefaultListModel model = new DefaultListModel();
+	private JButton btnCancelarReserva;
 
 	/**
 	 * Launch the application.
@@ -98,10 +109,18 @@ public class ReservasCliente extends JFrame {
 		cargarReservas();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void cargarReservas() {
 		String textoReservas = "";
-		textoReservas = io.cargarArrayPorUsu(usuarioReservas, diaHoy, mesHoy, anoHoy);
-		txtrReservasLista.setText(textoReservas);
+		listaReservas = io.devolverReservas();
+		Reserva res = null;
+		Iterator it = listaReservas.iterator();
+		while (it.hasNext()) {
+			res = (Reserva) it.next();
+			if (res.getUsuario().equals(usuarioReservas))
+				model.addElement(res);
+		}
+		listAreaReservas.setModel(model);
 	}
 
 	private class LblCerrarMouseListener extends MouseAdapter {
@@ -218,6 +237,65 @@ public class ReservasCliente extends JFrame {
             setLocation(X, Y);
 		}
 	}
+	private class ListAreaReservasMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");  
+			Reserva res = (Reserva) listAreaReservas.getSelectedValue();
+			String[] parts = res.getFechaEntrada().split("/");
+			if (Integer.parseInt(parts[1]) < 10) {
+				parts[1] = "0" + parts[1];
+			}
+			if (Integer.parseInt(parts[0]) < 10) {
+				parts[0] = "0" + parts[0];
+			}
+			String fechaEntradaReserva="";
+			if (diaHoy < 10) {
+				fechaEntradaReserva = "0" + diaHoy;
+			} else {
+				fechaEntradaReserva = Integer.toString(diaHoy);
+			}
+			if (mesHoy < 10) {
+				fechaEntradaReserva += "0" + mesHoy;
+			}else {
+				fechaEntradaReserva += Integer.toString(mesHoy);
+			}
+			fechaEntradaReserva += Integer.toString(anoHoy);
+			String fechaEntrada = parts[0]+"/"+parts[1]+"/"+parts[2];
+			Date dateEntrada = null;
+			Date dateEntradaReserva = null;
+			try {
+				dateEntrada = formatter1.parse(fechaEntrada);
+				dateEntradaReserva = formatter1.parse(fechaEntradaReserva);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			Calendar calEntrada = null;
+			calEntrada.setTime(dateEntrada);
+			Calendar calEntradaReserva = null;
+			calEntradaReserva.setTime(dateEntradaReserva);
+			LocalDate entrada = new LocalDate(calEntrada.getTimeInMillis());
+			LocalDate entradaReserva = new LocalDate(calEntradaReserva.getTimeInMillis());
+			int dias = Days.daysBetween(entrada, entradaReserva).getDays();
+			if (dias>=14) {
+				btnCancelarReserva.setEnabled(true);
+			} else {
+				btnCancelarReserva.setEnabled(false);
+			}
+			
+		}
+	}
+	private class BtnCancelarReservaMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Reserva res = (Reserva) listAreaReservas.getSelectedValue();
+			if (btnCancelarReserva.isEnabled()) {
+				io.cancelarReserva(res.getCodReserva());
+			}
+		}
+	}
 	/** Todas las variables y los apartados para la ejecuci�n de la app (VIVA NETBEANS) */
 	private void initApp() {
 		setResizable(false);
@@ -237,15 +315,20 @@ public class ReservasCliente extends JFrame {
 		btnSalir.setIcon(new ImageIcon(".\\recursos\\goBackBW.png"));
 		btnSalir.addMouseListener(new BtnSalirMouseListener());
 		btnSalir.setFocusable(false);
-
-		txtrReservasLista = new JTextArea();
-		txtrReservasLista.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		txtrReservasLista.setForeground(Color.BLACK);
-		txtrReservasLista.setEditable(false);
-		txtrReservasLista.setBounds(50, 150, 1180, 450);
-		contentPane.add(txtrReservasLista);
+		
+		btnCancelarReserva = new JButton("Cancelar Reserva");
+		btnCancelarReserva.addMouseListener(new BtnCancelarReservaMouseListener());
+		btnCancelarReserva.setEnabled(false);
+		btnCancelarReserva.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnCancelarReserva.setBounds(360, 604, 420, 60);
+		contentPane.add(btnCancelarReserva);
+		
+		listAreaReservas = new JList();
+		listAreaReservas.addMouseListener(new ListAreaReservasMouseListener());
+		listAreaReservas.setBounds(50, 153, 1180, 440);
+		contentPane.add(listAreaReservas);
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		btnSalir.setBounds(906, 611, 128, 128);
+		btnSalir.setBounds(1102, 604, 128, 128);
 		contentPane.add(btnSalir);
 
 		btnNuevaReserva = new JLabel("");
@@ -257,7 +340,7 @@ public class ReservasCliente extends JFrame {
 		btnNuevaReserva.addMouseListener(new BtnNuevaReservaMouseListener());
 		btnNuevaReserva.setFocusable(false);
 		btnNuevaReserva.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		btnNuevaReserva.setBounds(213, 611, 128, 128);
+		btnNuevaReserva.setBounds(50, 604, 128, 128);
 		contentPane.add(btnNuevaReserva);
 
 		txtrReservas = new JTextArea();
