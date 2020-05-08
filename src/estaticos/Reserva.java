@@ -7,6 +7,7 @@ public class Reserva implements Serializable {
 	 * Clase de reserva, para guardar todos los datos de las reservas realizadas por los clientes
 	 */
 	private static final long serialVersionUID = -2002972975913738373L;
+	private int codReserva;
 	private String usuario;
 	private String nombreReserva;
 	private String apellidosReserva;
@@ -32,9 +33,26 @@ public class Reserva implements Serializable {
 		this.numeroNoches = numeroNoches;
 	}
 
-
+	public Reserva(int codReserva, String usuario,String nombreReserva, String apellidosReserva, String fechaEntrada,
+			String fechaSalida, String tipoHabitacion, String regimen, String sexo, double precio, int numeroNoches) {
+		this.codReserva = codReserva;
+		this.usuario = usuario;
+		this.nombreReserva = nombreReserva;
+		this.apellidosReserva = apellidosReserva;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.tipoHabitacion = tipoHabitacion;
+		this.regimen = regimen;
+		this.sexo = sexo;
+		this.precio = precio;
+		this.numeroNoches = numeroNoches;
+	}
+	
 	public String getUsuario() {
 		return usuario;
+	}
+	public int getCodReserva() {
+		return codReserva;
 	}
 	public String getNombreReserva() {
 		return nombreReserva;
