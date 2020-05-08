@@ -112,7 +112,7 @@ public class Hotel extends JFrame {
 		initApp();
 		
 		//listaReservas = operacion.devolverReservas(diaHoy, mesHoy, anoHoy);
-		cargarReservas(io.devolverArrayReservasString(diaHoy, mesHoy, anoHoy));
+		cargarReservas(io.devolverArrayReservasString());
 	}
 
 	public void cargarReservas(String reservas) {
@@ -236,7 +236,7 @@ public class Hotel extends JFrame {
 	private void conseguirTexto() {
 		boolean porNombre, porApellido;
 		comprobarFecha();
-		listaReservas = io.devolverReservas(diaHoy, mesHoy, anoHoy);
+		listaReservas = io.devolverReservas();
 		ArrayList<Reserva> dumpArray = new ArrayList<Reserva>();
 		String nombre = txtNombre.getText();
 		String apellido = txtApellidos.getText();

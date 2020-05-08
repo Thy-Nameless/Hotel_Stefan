@@ -90,6 +90,7 @@ public class LogIn extends JFrame {
 	 */
 	public LogIn() {
 		initApp();
+		io.iniciarLogReservas();
 	}
 
 	private class LblCerrarMouseListener extends MouseAdapter {
