@@ -111,7 +111,7 @@ public class Reserva implements Serializable {
 
 	@Override
 	public String toString() {
-		return  nombreReserva + " " + apellidosReserva + " " + fechaEntrada + " " + fechaSalida + " " + tipoHabitacion + " " + regimen + " "
+		return  usuario + " " + nombreReserva + " " + apellidosReserva + " " + fechaEntrada + " " + fechaSalida + " " + tipoHabitacion + " " + regimen + " "
 				+ sexo + " " + precio + " " + numeroNoches;
 	}
 
