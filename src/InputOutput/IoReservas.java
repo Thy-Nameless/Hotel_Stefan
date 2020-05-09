@@ -28,7 +28,6 @@ public class IoReservas {
 		calHoyArray.setTime(hoyArray);
 		mesHoy = calHoyArray.get(Calendar.MONTH) + 1;
 		diaHoy = calHoyArray.get(Calendar.DAY_OF_MONTH);
-		System.out.println(diaHoy);
 		anoHoy = calHoyArray.get(Calendar.YEAR);
 	}
 	
@@ -453,6 +452,42 @@ public class IoReservas {
 		return cont;
 	}
     
-    
+    public ArrayList<String> comprobarDisponibilidadHabitacion(int diaEntr, int mesEntr, int anoEntr, int diaSalid, int mesSalid, int anoSalid, String regimen) {
+		conectar();
+		ArrayList<String> cont = new ArrayList<String>();
+		String fechaEntrada;
+		int numHabitacion;
+		String fechaSalida;
+		PreparedStatement pt = null;
+		ResultSet rs = null;
+		try {
+			pt = con.prepareStatement("SELECT * FROM reserva WHERE tipoHabitacion = '" + regimen + "' AND numHabitacion is not null");
+			
+			rs = pt.executeQuery();
+			while (rs.next()){
+				fechaSalida = rs.getString("fechaSalida");
+				fechaEntrada = rs.getString("fechaEntrada");
+				numHabitacion = rs.getInt("numHabitacion");
+				String[] fechEntrada = fechaEntrada.split("/");
+				String[] fechSalida = fechaSalida.split("/");
+				if (((anoEntr > Integer.parseInt(fechEntrada[2]) || mesEntr > Integer.parseInt(fechEntrada[1]) || diaEntr >= Integer.parseInt(fechEntrada[0])) && (anoEntr < Integer.parseInt(fechSalida[2]) || mesEntr < Integer.parseInt(fechSalida[1]) || diaEntr < Integer.parseInt(fechSalida[0]))) || ((anoSalid > Integer.parseInt(fechEntrada[2]) || mesSalid > Integer.parseInt(fechEntrada[1]) || diaSalid > Integer.parseInt(fechEntrada[1])) && (anoEntr < Integer.parseInt(fechEntrada[2]) || mesEntr < Integer.parseInt(fechEntrada[1]) || diaEntr < Integer.parseInt(fechEntrada[0])))){
+					cont.add(Integer.toString(numHabitacion));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		desconectar();
+		return cont;
+	}
     
 }

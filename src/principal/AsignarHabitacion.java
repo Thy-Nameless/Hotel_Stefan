@@ -34,6 +34,8 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 @SuppressWarnings({ "serial", "unused","unchecked","rawtypes" })
@@ -48,18 +50,20 @@ public class AsignarHabitacion extends JFrame {
 	private JLabel lblMaximizar;
 	private JTextArea txtrHabitacion;
 	private JComboBox comboBoxHabitacion;
+	private ArrayList<String> cont;
 	private JButton btnNewButton;
-	String[] vDui = {"101","102","103","104","105","201","202","203","204","205","301","302","303","304","305"};
-	String[] vDb = {"106","107","108","109","110","206","207","208","209","210","306","307","308","309","310"};
-	String[] vTri = {"111","112","113","114","115","211","212","213","214","215","311","312","313","314","315"};
-	String[] vSuite = {"116","117","118","119","120","216","217","218","219","220","316","317","318","319","320"};
-	private DefaultComboBoxModel DUI = new DefaultComboBoxModel(vDui);
-	private DefaultComboBoxModel DB = new DefaultComboBoxModel(vDb);
-	private DefaultComboBoxModel TRI = new DefaultComboBoxModel(vTri);
-	private DefaultComboBoxModel SUITE = new DefaultComboBoxModel(vSuite);
-	private IoReservas io;
-	Reserva reserva;
-
+	private String[] vDui = {"101","102","103","104","105","201","202","203","204","205","301","302","303","304","305"};
+	private String[] vDb = {"106","107","108","109","110","206","207","208","209","210","306","307","308","309","310"};
+	private String[] vTri = {"111","112","113","114","115","211","212","213","214","215","311","312","313","314","315"};
+	private String[] vSuite = {"116","117","118","119","120","216","217","218","219","220","316","317","318","319","320"};
+	private ArrayList<String> habDisponiblesArrayList = new ArrayList<String>();
+	private String[] habDisponibles;
+	private DefaultComboBoxModel modeloCombox;
+	private IoReservas io = new IoReservas();
+	private Reserva reserva;
+	private String[] fechEntrada;
+	private String[] fechSalida;
+	private boolean existe;
 	/**
 	 * Launch the application.
 	 */
@@ -81,7 +85,6 @@ public class AsignarHabitacion extends JFrame {
 	 */
 	public AsignarHabitacion() {
 		initApp();
-		comboBoxHabitacion.setModel(DUI);
 	}
 	public AsignarHabitacion(Reserva res) {
 		initApp();
@@ -89,18 +92,113 @@ public class AsignarHabitacion extends JFrame {
 		asignarComboBox();
 	}
 	private void asignarComboBox() {
+		fechEntrada = reserva.getFechaEntrada().split("/");
+		int diaEntrada = Integer.parseInt(fechEntrada[0]);
+		int mesEntrada = Integer.parseInt(fechEntrada[1]);
+		int anoEntrada = Integer.parseInt(fechEntrada[2]);
+		fechSalida = reserva.getFechaSalida().split("/");
+		int diaSalida = Integer.parseInt(fechSalida[0]);
+		int mesSalida = Integer.parseInt(fechSalida[1]);
+		int anoSalida = Integer.parseInt(fechSalida[2]);
+		String tipoHab = reserva.getTipoHabitacion();
+		cont = io.comprobarDisponibilidadHabitacion(diaEntrada, mesEntrada, anoEntrada, diaSalida, mesSalida, anoSalida, tipoHab);
+		for (String hab : cont) {
+		}
+		int contNumIterator = 0;
+		Iterator it;
 		switch (reserva.getTipoHabitacion()) {
 			case "DUI":
-				comboBoxHabitacion.setModel(DUI);
+				for (String dui : vDui) {
+					existe = false;
+					for (String hab : cont) {
+						if (dui.equals(hab)) {
+							existe = true;
+							break;
+						}
+					}
+					if (!existe) {
+						habDisponiblesArrayList.add(dui);
+					}
+				}
+				habDisponibles = new String[habDisponiblesArrayList.size()];
+				it = habDisponiblesArrayList.iterator();
+				contNumIterator = 0;
+				while (it.hasNext()) {
+					habDisponibles[contNumIterator] = (String) it.next();
+					contNumIterator++;
+				}
+				modeloCombox = new DefaultComboBoxModel(habDisponibles);
+				comboBoxHabitacion.setModel(modeloCombox);
 				break;
 			case "DB":
-				comboBoxHabitacion.setModel(DB);
+				for (String db : vDb) {
+					existe = false;
+					for (String hab : cont) {
+						if (db.equals(hab)) {
+							existe = true;
+							break;
+						}
+					}
+					if (!existe) {
+						habDisponiblesArrayList.add(db);
+					}
+				}
+				habDisponibles = new String[habDisponiblesArrayList.size()];
+				it = habDisponiblesArrayList.iterator();
+				contNumIterator = 0;
+				while (it.hasNext()) {
+					habDisponibles[contNumIterator] = (String) it.next();
+					contNumIterator++;
+				}
+				System.out.println(habDisponibles.length);
+				modeloCombox = new DefaultComboBoxModel(habDisponibles);
+				comboBoxHabitacion.setModel(modeloCombox);
 				break;
 			case "TRI":
-				comboBoxHabitacion.setModel(TRI);
+				for (String tri : vTri) {
+					existe = false;
+					for (String hab : cont) {
+						if (tri.equals(hab)) {
+							existe = true;
+							break;
+						}
+					}
+					if (!existe) {
+						habDisponiblesArrayList.add(tri);
+					}
+				}
+				habDisponibles = new String[habDisponiblesArrayList.size()];
+				it = habDisponiblesArrayList.iterator();
+				contNumIterator = 0;
+				while (it.hasNext()) {
+					habDisponibles[contNumIterator] = (String) it.next();
+					contNumIterator++;
+				}
+				modeloCombox = new DefaultComboBoxModel(habDisponibles);
+				comboBoxHabitacion.setModel(modeloCombox);
 				break;
 			case "SUITE":
-				comboBoxHabitacion.setModel(SUITE);
+				for (String suite : vSuite) {
+					existe = false;
+					for (String hab : cont) {
+						if (suite.equals(hab)) {
+							existe = true;
+							break;
+						}
+					}
+					if (!existe) {
+						habDisponiblesArrayList.add(suite);
+					}
+				}
+				habDisponibles = new String[habDisponiblesArrayList.size()];
+				it = habDisponiblesArrayList.iterator();
+				contNumIterator = 0;
+				while (it.hasNext()) {
+					habDisponibles[contNumIterator] = (String) it.next();
+					contNumIterator++;
+				}
+				modeloCombox = new DefaultComboBoxModel(habDisponibles);
+				comboBoxHabitacion.setModel(modeloCombox);
 				break;
 		}
 		
