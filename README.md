@@ -35,7 +35,7 @@ Estado de proyecto / State of project:
 - [x] Creación de proyecto y primeros commits / Creation and First Commits
 - [x] Funcionalidad básica / Basic functionality
 - [x] Conexión a base de datos / Database connection
-- [ ] Toques finales / Finishing touches
+- [x] Toques finales / Finishing touches
 
 ---
 
