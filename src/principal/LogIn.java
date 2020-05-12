@@ -223,12 +223,14 @@ public class LogIn extends JFrame {
 				if (user.getNombreUsuario().equals(textFieldUser.getText()) && user.getPassword().equals(contrasena)) {
 					muestraMensaje = false;
 					if (user.isEsAdmin()) {
+						bbdd.registrarLogIn(textFieldUser.getText(), String.copyValueOf(passwordFieldPass.getPassword()), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()), true);
 						Hotel hotel = new Hotel();
 						hotel.setVisible(true);
 						dispose();
 						break;
 					}
 					if (!user.isEsAdmin()) {
+						bbdd.registrarLogIn(textFieldUser.getText(), String.copyValueOf(passwordFieldPass.getPassword()), new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()), false);
 						String usuario = textFieldUser.getText();
 						ReservasCliente cliente = new ReservasCliente(usuario);
 						cliente.setVisible(true);
