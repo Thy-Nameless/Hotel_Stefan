@@ -11,8 +11,6 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-
 import estaticos.Reserva;
 import estaticos.Usuario;
 
@@ -258,12 +256,12 @@ public class IoReservas {
 		conectar();
 		PreparedStatement pt = null;
 		ResultSet rs = null;
-		
+		Reserva res = null;
 		try {
 			pt = con.prepareStatement("SELECT * FROM reserva");
 			
 			rs = pt.executeQuery();
-			if (rs.next()){
+			while (rs.next()){
 				codReserva = rs.getInt("codReserva");
 				usuario = rs.getString("usuario");
 				nombreReserva = rs.getString("nombreReserva");
@@ -275,9 +273,8 @@ public class IoReservas {
 				tipoHabitacion = rs.getString("tipoHabitacion");
 				precio = rs.getInt("precio");
 				numeroNoches = rs.getInt("numeroNoches");
-				String[] parts = fechaEntrada.split("/");
 				//if (anoHoy > Integer.parseInt(parts[2]) || mesHoy > Integer.parseInt(parts[1]) || diaHoy >= Integer.parseInt(parts[0])) {
-				Reserva res = new Reserva(codReserva,usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches);
+				res = new Reserva(codReserva,usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches);
 				reservas.add(res);
 				//}
 			}

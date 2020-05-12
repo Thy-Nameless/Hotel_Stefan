@@ -673,6 +673,7 @@ public class Reservar extends JFrame {
 	
 	private void comprobarDisponibilidadHabitacion() {
 		String seleccionHabitacion = "";
+		int num = 0;
 		if (rdbtnDui.isSelected()) {
 			seleccionHabitacion = "DUI";
 		}
@@ -685,8 +686,10 @@ public class Reservar extends JFrame {
 		if (rdbtnSuite.isSelected()) {
 			seleccionHabitacion = "SUITE";
 		}
-		
-		int num = io.comprobarHab(diaEntrada, mesEntrada, anoEntrada, diaSalida, mesSalida, anoSalida, seleccionHabitacion);
+		try {
+			num = io.comprobarHab(diaEntrada, mesEntrada, anoEntrada, diaSalida, mesSalida, anoSalida, seleccionHabitacion);
+		} catch (Exception e) {
+		}
 		if (num<20) {
 			disponible = true;
 		} else {

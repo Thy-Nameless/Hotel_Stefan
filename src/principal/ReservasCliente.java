@@ -44,7 +44,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JList;
-@SuppressWarnings({ "unused", "serial" })
+@SuppressWarnings({ "unused", "serial", "rawtypes" })
 public class ReservasCliente extends JFrame {
 
 	private JPanel contentPane;
@@ -251,14 +251,14 @@ public class ReservasCliente extends JFrame {
 			}
 			String fechaEntradaReserva="";
 			if (diaHoy < 10) {
-				fechaEntradaReserva = "0" + diaHoy;
+				fechaEntradaReserva = "0" + diaHoy +"/";
 			} else {
-				fechaEntradaReserva = Integer.toString(diaHoy);
+				fechaEntradaReserva = Integer.toString(diaHoy) + "/";
 			}
 			if (mesHoy < 10) {
-				fechaEntradaReserva += "0" + mesHoy;
+				fechaEntradaReserva += "0" + mesHoy +"/";
 			}else {
-				fechaEntradaReserva += Integer.toString(mesHoy);
+				fechaEntradaReserva += Integer.toString(mesHoy)+ "/";
 			}
 			fechaEntradaReserva += Integer.toString(anoHoy);
 			String fechaEntrada = parts[0]+"/"+parts[1]+"/"+parts[2];
@@ -272,13 +272,13 @@ public class ReservasCliente extends JFrame {
 				e1.printStackTrace();
 			}
 			
-			Calendar calEntrada = null;
+			Calendar calEntrada = Calendar.getInstance();
 			calEntrada.setTime(dateEntrada);
-			Calendar calEntradaReserva = null;
+			Calendar calEntradaReserva = Calendar.getInstance();
 			calEntradaReserva.setTime(dateEntradaReserva);
 			LocalDate entrada = new LocalDate(calEntrada.getTimeInMillis());
 			LocalDate entradaReserva = new LocalDate(calEntradaReserva.getTimeInMillis());
-			int dias = Days.daysBetween(entrada, entradaReserva).getDays();
+			int dias = Days.daysBetween(entradaReserva, entrada).getDays();
 			if (dias>=14) {
 				btnCancelarReserva.setEnabled(true);
 			} else {
