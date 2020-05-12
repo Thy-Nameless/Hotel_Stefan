@@ -70,7 +70,7 @@ public class ReservasCliente extends JFrame {
 	private int anoHoy;
 	private JList listAreaReservas;
 	private DefaultListModel model = new DefaultListModel();
-	private JButton btnCancelarReserva;
+	private JLabel btnCancelarReserva;
 
 	/**
 	 * Launch the application.
@@ -295,6 +295,14 @@ public class ReservasCliente extends JFrame {
 				io.cancelarReserva(res.getCodReserva());
 			}
 		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnCancelarReserva.setIcon(new ImageIcon(".//recursos//cancel.png"));
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnCancelarReserva.setIcon(new ImageIcon(".//recursos/cancelBW.png"));
+		}
 	}
 	/** Todas las variables y los apartados para la ejecuci�n de la app (VIVA NETBEANS) */
 	private void initApp() {
@@ -316,11 +324,16 @@ public class ReservasCliente extends JFrame {
 		btnSalir.addMouseListener(new BtnSalirMouseListener());
 		btnSalir.setFocusable(false);
 		
-		btnCancelarReserva = new JButton("Cancelar Reserva");
-		btnCancelarReserva.addMouseListener(new BtnCancelarReservaMouseListener());
+		btnCancelarReserva = new JLabel("");
+		btnCancelarReserva.setIcon(new ImageIcon(".\\recursos\\cancelBW.png"));
+		btnCancelarReserva.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnCancelarReserva.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelarReserva.setHorizontalAlignment(SwingConstants.CENTER);
+		btnCancelarReserva.setToolTipText("Cancelar reserva");
 		btnCancelarReserva.setEnabled(false);
 		btnCancelarReserva.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		btnCancelarReserva.setBounds(360, 604, 420, 60);
+		btnCancelarReserva.setBounds(549, 604, 128, 128);
+		btnCancelarReserva.addMouseListener(new BtnCancelarReservaMouseListener());
 		contentPane.add(btnCancelarReserva);
 		
 		listAreaReservas = new JList();

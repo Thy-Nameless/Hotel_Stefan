@@ -51,7 +51,7 @@ public class AsignarHabitacion extends JFrame {
 	private JTextArea txtrHabitacion;
 	private JComboBox comboBoxHabitacion;
 	private ArrayList<String> cont;
-	private JButton btnNewButton;
+	private JLabel btnNewButton;
 	private String[] vDui = {"101","102","103","104","105","201","202","203","204","205","301","302","303","304","305"};
 	private String[] vDb = {"106","107","108","109","110","206","207","208","209","210","306","307","308","309","310"};
 	private String[] vTri = {"111","112","113","114","115","211","212","213","214","215","311","312","313","314","315"};
@@ -246,6 +246,14 @@ public class AsignarHabitacion extends JFrame {
 			JOptionPane.showMessageDialog(null, "Habitacion asignada");
 			dispose();
 		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btnNewButton.setIcon(new ImageIcon(".//recursos//addNewRoom.png"));
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			btnNewButton.setIcon(new ImageIcon(".//recursos//addNewRoomBW.png"));
+		}
 	}
 	private class PanelMouseListener extends MouseAdapter {
 		@Override
@@ -280,10 +288,14 @@ public class AsignarHabitacion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnNewButton = new JButton("Asignar");
-		btnNewButton.addMouseListener(new BtnNewButtonMouseListener());
+		btnNewButton = new JLabel("");
+		btnNewButton.setIcon(new ImageIcon(".\\recursos\\addNewRoomBW.png"));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setToolTipText("Asignar habitación");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		btnNewButton.setBounds(139, 200, 200, 100);
+		btnNewButton.setBounds(190, 219, 128, 128);
+		btnNewButton.addMouseListener(new BtnNewButtonMouseListener());
 		contentPane.add(btnNewButton);
 		
 		comboBoxHabitacion = new JComboBox();
