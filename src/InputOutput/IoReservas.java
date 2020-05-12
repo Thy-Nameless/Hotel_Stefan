@@ -252,7 +252,7 @@ public class IoReservas {
     public ArrayList<Reserva> devolverReservas() {
     	ArrayList<Reserva> reservas = new ArrayList<Reserva>();
     	int codReserva;String usuario;String nombreReserva; String apellidosReserva; String fechaEntrada;
-		String fechaSalida; String tipoHabitacion; String regimen; String sexo; double precio; int numeroNoches;
+		String fechaSalida; String tipoHabitacion; String regimen; String sexo; double precio; int numeroNoches; int numHabitacion;
 		conectar();
 		PreparedStatement pt = null;
 		ResultSet rs = null;
@@ -273,8 +273,12 @@ public class IoReservas {
 				tipoHabitacion = rs.getString("tipoHabitacion");
 				precio = rs.getInt("precio");
 				numeroNoches = rs.getInt("numeroNoches");
+				numHabitacion = rs.getInt("numHabitacion");
+				if (rs.wasNull()) {
+					numHabitacion = 0;
+				}
 				//if (anoHoy > Integer.parseInt(parts[2]) || mesHoy > Integer.parseInt(parts[1]) || diaHoy >= Integer.parseInt(parts[0])) {
-				res = new Reserva(codReserva,usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches);
+				res = new Reserva(codReserva,usuario, nombreReserva, apellidosReserva, fechaEntrada, fechaSalida, tipoHabitacion, regimen, sexo, precio, numeroNoches, numHabitacion);
 				reservas.add(res);
 				//}
 			}

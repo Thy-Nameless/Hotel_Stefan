@@ -18,6 +18,7 @@ public class Reserva implements Serializable {
 	private String sexo;
 	private double precio;
 	private int numeroNoches;
+	private int numHabitacion;
 
 	public Reserva(String usuario,String nombreReserva, String apellidosReserva, String fechaEntrada,
 			String fechaSalida, String tipoHabitacion, String regimen, String sexo, double precio, int numeroNoches) {
@@ -31,6 +32,7 @@ public class Reserva implements Serializable {
 		this.sexo = sexo;
 		this.precio = precio;
 		this.numeroNoches = numeroNoches;
+		this.numHabitacion = 0;
 	}
 
 	public Reserva(int codReserva, String usuario,String nombreReserva, String apellidosReserva, String fechaEntrada,
@@ -46,6 +48,22 @@ public class Reserva implements Serializable {
 		this.sexo = sexo;
 		this.precio = precio;
 		this.numeroNoches = numeroNoches;
+		this.numHabitacion = 0;
+	}
+	public Reserva(int codReserva, String usuario,String nombreReserva, String apellidosReserva, String fechaEntrada,
+			String fechaSalida, String tipoHabitacion, String regimen, String sexo, double precio, int numeroNoches, int numHabitacion) {
+		this.codReserva = codReserva;
+		this.usuario = usuario;
+		this.nombreReserva = nombreReserva;
+		this.apellidosReserva = apellidosReserva;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.tipoHabitacion = tipoHabitacion;
+		this.regimen = regimen;
+		this.sexo = sexo;
+		this.precio = precio;
+		this.numeroNoches = numeroNoches;
+		this.numHabitacion = numHabitacion;
 	}
 	
 	public String getUsuario() {
@@ -129,8 +147,14 @@ public class Reserva implements Serializable {
 
 	@Override
 	public String toString() {
-		return  usuario + " " + nombreReserva + " " + apellidosReserva + " " + fechaEntrada + " " + fechaSalida + " " + tipoHabitacion + " " + regimen + " "
-				+ sexo + " " + precio + " " + numeroNoches;
+		if (numHabitacion == 0) {
+			return  usuario + ", " + nombreReserva + " " + apellidosReserva + ", " + fechaEntrada + ", " + fechaSalida + ", " + tipoHabitacion + " " + regimen + " "
+					+ sexo + ", " + precio + "€, " + numeroNoches;
+		} else {
+			return  usuario + ", " + nombreReserva + " " + apellidosReserva + ", " + fechaEntrada + ", " + fechaSalida + ", " + tipoHabitacion + " " + regimen + " "
+					+ sexo + ", " + precio + "€, " + numeroNoches + ", Habitacion: " +numHabitacion;
+		}
+		
 	}
 
 }
