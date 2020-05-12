@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 
-import InputOutput.IoDatos;
-import InputOutput.OperacionHabitacion;
 import principal.Hotel;
 import principal.Pago;
 import principal.Reservar;
@@ -21,67 +19,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @RunWith(MyRunner.class)
 public class RunListenerTest {
 
-	OperacionHabitacion opHab;
 	Reservar reserva;
 	Pago pago;
 	Hotel hotel;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		opHab = new OperacionHabitacion();
 		reserva = new Reservar();
 		pago = new Pago();
 		hotel = new Hotel();
-	}
-
-	@Test
-	public void testDisponibilidadHabitaciones() {
-		try {
-			assertEquals(true, opHab.comprobarHabitacionTest(0));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-
-	@Test
-	public void testDisponibilidadHabitaciones_2() {
-		try {
-			opHab.comprobarHabitacion(60);
-			assertFalse(false);
-			// De esta manera si no hay excepción salta a false
-		} catch (IndexOutOfBoundsException e) {
-			assertFalse(true);
-		} catch (NullPointerException e) {
-
-		}
-	}
-
-	@Test
-	@Ignore
-	public void testValorLimiteFecha() {
-		assertEquals(true, reserva.comprobarMesTest(2002, 12, 31));
-	}
-
-	@Test
-	@Ignore
-	public void testValorLimiteFecha_2() {
-		assertEquals(false, reserva.comprobarMesTest(1900, 2, 29));
-	}
-
-	@Test
-	@Ignore
-	public void testValorLimiteFecha_3() {
-		assertEquals(false, reserva.comprobarMesTest(2003, 2, 29));
-	}
-
-	@Test
-	public void testComprobacionUsuario() {
-		assertEquals(true, IoDatos.comprobarUser("Borja", "12345"));
-	}
-
-	@Test
-	public void testComprobacionUsuario_2() {
-		assertEquals(false, IoDatos.comprobarUser("Iván", "001122"));
 	}
 
 	@Test
